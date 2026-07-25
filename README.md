@@ -2,6 +2,7 @@
   
 # AerialMetric: Benchmarking and Adapting UAV Monocular Metric Depth Estimation in the Real World
 
+[![arXiv](https://img.shields.io/badge/arXiv-2606.29716-b31b1b.svg)](https://arxiv.org/abs/2606.29716)
 [![Project Page](https://img.shields.io/badge/Project-Page-blue)](https://kuieless.github.io/AerialMetric-ECCV2026-page/)
 [![Dataset & Weight-PartA](https://img.shields.io/badge/Dataset-HuggingFace-yellow)](https://huggingface.co/datasets/Kuiee/AerialMetric-ECCV2026)
 
