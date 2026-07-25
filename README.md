@@ -203,9 +203,10 @@ Weights:
 - **[MoGe-2](https://github.com/microsoft/MoGe)** (Wang et al., 2025) — the core monocular geometry estimation model used in this work.
 - **[UniDepthV2](https://github.com/lpiccinelli-eth/UniDepth)** (Piccinelli et al., 2025) — used to evaluate the cross-architecture generalization of models adapted using AerialMetric.
 - **[DJI Terra](https://enterprise.dji.com/dji-terra)** — the primary software used for aerial photogrammetric reconstruction and geometric data processing.
-- **[Unreal Engine 4.27](https://dev.epicgames.com/documentation/en-us/unreal-engine/unreal-engine-4-27-documentation?application_version=4.27)**, **[AirSim](https://github.com/microsoft/AirSim)**, and **[Cesium for Unreal](https://cesium.com/learn/unreal/)** — used for virtual scene construction, UAV flight simulation, and geospatial environment integration in the AerialMetric-Synthetic subset.
-- **[Google Earth Studio](https://www.google.com/earth/studio/)** and **[Google Earth Pro](https://www.google.com/earth/about/versions/)** — used for camera trajectory design and virtual aerial data generation in the AerialMetric-Synthetic subset.
-- **[Gemini](https://deepmind.google/models/gemini/)** and **[Depth Anything 3](https://depth-anything-3.github.io/)** — used to assist in the construction and processing of the AerialMetric-Wild subset.
+- **[Unreal Engine 4.27](https://dev.epicgames.com/documentation/en-us/unreal-engine/unreal-engine-4-27-documentation?application_version=4.27)**, **[AirSim](https://github.com/microsoft/AirSim)**, **[Cesium for Unreal](https://cesium.com/learn/unreal/)**, and **[Google Earth Studio](https://www.google.com/earth/studio/)** — used for virtual scene construction, UAV flight simulation, geospatial environment integration, and aerial data generation in the AerialMetric-Synthetic subset.
+- **[Google Earth Pro](https://www.google.com/earth/about/versions/)**, **[Gemini](https://deepmind.google/models/gemini/)**, and **[Depth Anything 3](https://depth-anything-3.github.io/)** — used to assist with geolocation, scale calibration, and data processing for the AerialMetric-Wild subset.
+
+
 
 
 
