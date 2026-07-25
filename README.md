@@ -174,7 +174,7 @@ python demo_infer.py \
 | **Output** | `--output` | `./demo_output` | Output directory |
 | | `--save_npy` / `--no_npy` | on | Save raw `.npy` depth array |
 | | `--save_components` | off | Also save standalone `_depth_vis.png` |
-| **Visualization** | `--cmap` | jet | Colormap: `jet` / `inferno` / `plasma` / `viridis` / `turbo` |
+| **Visualization** | `--cmap` | Spectral | Colormap shared by depth visualization and both colorbars: `Spectral` / `jet` / `inferno` / `plasma` / `viridis` / `turbo` |
 | | `--vmin` / `--vmax` | auto | Depth range clamp for colormap |
 | | `--seed` | 42 | Random seed for point picking |
 | | `--point_margin` | 20 | Edge margin for point sampling |

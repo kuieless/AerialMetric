@@ -3,7 +3,7 @@
 MoGe2 Depth Inference Demo — single image / video / folder
 Output per frame:
   *_depth.npy          — raw float32 depth array
-  *_depth_vis.png      — jet colormap visualization
+  *_depth_vis.png      — Spectral colormap visualization
   *_colorbar.png       — standalone colorbar with scale
   *_depth_annotated.png — depth_vis + colorbar stacked, with 2 random point markers
   *_meta.json          — per-frame metadata (vmin/vmax, point depths, shape)
@@ -31,18 +31,21 @@ from moge.model import import_model_class_by_version
 #  Colormap & Drawing Helpers
 # ══════════════════════════════════════════════════════════════════════
 
-def apply_colormap(depth, vmin=None, vmax=None, cmap=cv2.COLORMAP_JET):
-    """Normalize depth to 0-255 and apply OpenCV colormap. Returns BGR uint8."""
+def apply_colormap(depth, vmin=None, vmax=None, cmap="Spectral"):
+    """Normalize depth and apply a Matplotlib colormap. Returns BGR uint8."""
+    import matplotlib
+    matplotlib.use("Agg")
+
     if vmin is None:
         vmin = float(np.percentile(depth, 2))
     if vmax is None:
         vmax = float(np.percentile(depth, 98))
     vis = np.clip((depth - vmin) / (vmax - vmin + 1e-8), 0.0, 1.0)
-    vis = (vis * 255).astype(np.uint8)
-    return cv2.applyColorMap(vis, cmap)
+    vis_rgb = (matplotlib.colormaps[cmap](vis)[..., :3] * 255).astype(np.uint8)
+    return cv2.cvtColor(np.ascontiguousarray(vis_rgb), cv2.COLOR_RGB2BGR)
 
 
-def save_colorbar(out_path, vmin, vmax, dpi=100):
+def save_colorbar(out_path, vmin, vmax, cmap="Spectral", dpi=100):
     """Save a standalone horizontal colorbar PNG."""
     import matplotlib
     matplotlib.use("Agg")
@@ -52,7 +55,7 @@ def save_colorbar(out_path, vmin, vmax, dpi=100):
     fig, ax = plt.subplots(figsize=(6, 0.4))
     norm = mcolors.Normalize(vmin=vmin, vmax=vmax)
     fig.colorbar(
-        matplotlib.cm.ScalarMappable(norm=norm, cmap="jet"),
+        matplotlib.cm.ScalarMappable(norm=norm, cmap=cmap),
         cax=ax,
         orientation="horizontal",
         label="Depth (m)",
@@ -61,12 +64,17 @@ def save_colorbar(out_path, vmin, vmax, dpi=100):
     plt.close(fig)
 
 
-def colorbar_array(width, height, vmin, vmax, font_scale=0.5):
+def colorbar_array(width, height, vmin, vmax, cmap="Spectral", font_scale=0.5):
     """Generate a BGR colorbar strip as a numpy array (height x width x 3)."""
-    bar = np.linspace(vmax, vmin, width, dtype=np.float32)
+    import matplotlib
+    matplotlib.use("Agg")
+
+    # Left-to-right is vmin-to-vmax, matching the paper:
+    # near/small depth is red and far/large depth is blue-purple.
+    bar = np.linspace(vmin, vmax, width, dtype=np.float32)
     bar = np.clip((bar - vmin) / (vmax - vmin + 1e-8), 0.0, 1.0)
-    bar = (bar * 255).astype(np.uint8)
-    bar_bgr = cv2.applyColorMap(bar.reshape(1, -1), cv2.COLORMAP_JET)
+    bar_rgb = (matplotlib.colormaps[cmap](bar)[..., :3] * 255).astype(np.uint8)
+    bar_bgr = cv2.cvtColor(bar_rgb.reshape(1, -1, 3), cv2.COLOR_RGB2BGR)
     bar_bgr = cv2.resize(bar_bgr, (width, height), interpolation=cv2.INTER_LINEAR)
 
     # Draw tick labels
@@ -361,7 +369,7 @@ def infer_single(model, img_bgr, device="cuda", fp16=True, resize=None,
 #  Output Compositing
 # ══════════════════════════════════════════════════════════════════════
 
-def compose_annotated_output(depth, vmin=None, vmax=None, margin=40, seed=None):
+def compose_annotated_output(depth, vmin=None, vmax=None, cmap="Spectral", margin=40, seed=None):
     """Produce a single annotated image: depth_vis on top, colorbar on bottom,
     with two random points marked on the depth_vis and their depth values labeled.
 
@@ -379,7 +387,7 @@ def compose_annotated_output(depth, vmin=None, vmax=None, margin=40, seed=None):
     gap = 8
 
     # ── depth visualization ──
-    vis = apply_colormap(depth, vmin=vmin, vmax=vmax)
+    vis = apply_colormap(depth, vmin=vmin, vmax=vmax, cmap=cmap)
 
     # ── pick two random points ──
     pts = pick_two_valid_points(depth, margin=margin, seed=seed)
@@ -395,7 +403,7 @@ def compose_annotated_output(depth, vmin=None, vmax=None, margin=40, seed=None):
         draw_point_marker(vis_annotated, px, py, pi["depth_m"], color=color)
 
     # ── colorbar strip ──
-    bar = colorbar_array(w, bar_height, vmin, vmax)
+    bar = colorbar_array(w, bar_height, vmin, vmax, cmap=cmap)
 
     # ── stack: vis_annotated + gap + colorbar ──
     gap_strip = np.full((gap, w, 3), 255, dtype=np.uint8)
@@ -462,8 +470,9 @@ Examples:
     p.add_argument("--stride", type=int, default=1, help="Frame stride for video (default: 1)")
 
     # ── Visualization ──
-    p.add_argument("--cmap", default="jet", choices=["jet", "inferno", "plasma", "viridis", "turbo"],
-                   help="Colormap (default: jet)")
+    p.add_argument("--cmap", default="Spectral",
+                   choices=["Spectral", "jet", "inferno", "plasma", "viridis", "turbo"],
+                   help="Colormap shared by depth and both colorbars (default: Spectral)")
     p.add_argument("--vmin", type=float, default=None, help="Depth min for colormap (auto by default)")
     p.add_argument("--vmax", type=float, default=None, help="Depth max for colormap (auto by default)")
     p.add_argument("--seed", type=int, default=42, help="Random seed for point picking (default: 42)")
@@ -485,15 +494,7 @@ Examples:
     resize = args.resize if args.resize > 0 else None
     fp16 = args.fp16 and device.startswith("cuda")
 
-    # Map cmap name → OpenCV constant
-    cmap_map = {
-        "jet": cv2.COLORMAP_JET,
-        "inferno": cv2.COLORMAP_INFERNO,
-        "plasma": cv2.COLORMAP_PLASMA,
-        "viridis": cv2.COLORMAP_VIRIDIS,
-        "turbo": cv2.COLORMAP_TURBO,
-    }
-    cmap = cmap_map.get(args.cmap, cv2.COLORMAP_JET)
+    cmap = args.cmap
 
     # ── Load model ──
     t0 = time.perf_counter()
@@ -580,7 +581,8 @@ Examples:
 
         # ── 2. Composite annotated output (vis + points + colorbar) ──
         composite, point_info = compose_annotated_output(
-            depth, vmin=vmin, vmax=vmax, margin=args.point_margin, seed=args.seed + i
+            depth, vmin=vmin, vmax=vmax, cmap=cmap,
+            margin=args.point_margin, seed=args.seed + i
         )
         annotated_path = os.path.join(args.output, f"{name}_depth_annotated.png")
         cv2.imwrite(annotated_path, composite)
@@ -590,7 +592,7 @@ Examples:
 
         # ── 3. Standalone colorbar ──
         colorbar_path = os.path.join(args.output, f"{name}_colorbar.png")
-        save_colorbar(colorbar_path, vmin, vmax)
+        save_colorbar(colorbar_path, vmin, vmax, cmap=cmap)
 
         # ── 4. Standalone depth visualization (no points) ──
         if args.save_components:
