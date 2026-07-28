@@ -229,11 +229,11 @@ We gratefully acknowledge the following datasets or works for providing raw UAV 
 If you find this work useful, please cite:
 
 ```bibtex
-@inproceedings{song2026aerialmetric,
-  title     = {AerialMetric: Benchmarking and Adapting UAV Monocular Metric Depth Estimation in the Real World},
-  author    = {Zhongqiang Song and Guanying Chen and Yuqi Zhang and Yin Zou and Chuanyu Fu and Zhiyuan Yuan and Chuan Huang and Shuguang Cui and Xiaochun Cao},
-  booktitle = {European Conference on Computer Vision (ECCV)},
-  year      = {2026}
+@article{song2026aerialmetric,
+  title={AerialMetric: Benchmarking and Adapting UAV Monocular Metric Depth Estimation in the Real World},
+  author={Song, Zhongqiang and Chen, Guanying and Zhang, Yuqi and Zou, Yin and Fu, Chuanyu and Yuan, Zhiyuan and Huang, Chuan and Cui, Shuguang and Cao, Xiaochun},
+  journal={arXiv preprint arXiv:2606.29716},
+  year={2026}
 }
 ```
 
