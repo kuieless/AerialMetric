@@ -31,7 +31,95 @@
 - ✅ **2026-07-24:** The code repository is now publicly available and includes both inference and benchmark scripts.
 - 🎉 **2026-06-18:** AerialMetric was accepted to ECCV 2026.
 
+## Visual Examples
 
+Each row shows paired examples. RGB images and metric-depth visualizations share the same basename in `demo/`.
+
+<table>
+<tr>
+<td><img src="https://huggingface.co/datasets/Kuiee/AerialMetric-ECCV2026/resolve/main/demo/artsci.jpg" width="150"/></td>
+<td><img src="https://huggingface.co/datasets/Kuiee/AerialMetric-ECCV2026/resolve/main/demo/artsci.png" width="150"/></td>
+
+<td><img src="https://huggingface.co/datasets/Kuiee/AerialMetric-ECCV2026/resolve/main/demo/campus.jpg" width="150"/></td>
+<td><img src="https://huggingface.co/datasets/Kuiee/AerialMetric-ECCV2026/resolve/main/demo/campus.png" width="150"/></td>
+
+<td><img src="https://huggingface.co/datasets/Kuiee/AerialMetric-ECCV2026/resolve/main/demo/factory.jpg" width="150"/></td>
+<td><img src="https://huggingface.co/datasets/Kuiee/AerialMetric-ECCV2026/resolve/main/demo/factory.png" width="150"/></td>
+</tr>
+
+<tr>
+<td align="center">artsci</td>
+<td align="center">depth</td>
+<td align="center">campus</td>
+<td align="center">depth</td>
+<td align="center">factory</td>
+<td align="center">depth</td>
+</tr>
+
+
+<tr>
+<td><img src="https://huggingface.co/datasets/Kuiee/AerialMetric-ECCV2026/resolve/main/demo/farm.jpg" width="150"/></td>
+<td><img src="https://huggingface.co/datasets/Kuiee/AerialMetric-ECCV2026/resolve/main/demo/farm.png" width="150"/></td>
+
+<td><img src="https://huggingface.co/datasets/Kuiee/AerialMetric-ECCV2026/resolve/main/demo/gress.jpg" width="150"/></td>
+<td><img src="https://huggingface.co/datasets/Kuiee/AerialMetric-ECCV2026/resolve/main/demo/gress.png" width="150"/></td>
+
+<td><img src="https://huggingface.co/datasets/Kuiee/AerialMetric-ECCV2026/resolve/main/demo/lfls2.jpg" width="150"/></td>
+<td><img src="https://huggingface.co/datasets/Kuiee/AerialMetric-ECCV2026/resolve/main/demo/lfls2.png" width="150"/></td>
+</tr>
+
+<tr>
+<td align="center">farm</td>
+<td align="center">depth</td>
+<td align="center">gress</td>
+<td align="center">depth</td>
+<td align="center">lfls2</td>
+<td align="center">depth</td>
+</tr>
+
+
+<tr>
+<td><img src="https://huggingface.co/datasets/Kuiee/AerialMetric-ECCV2026/resolve/main/demo/longhua.jpg" width="150"/></td>
+<td><img src="https://huggingface.co/datasets/Kuiee/AerialMetric-ECCV2026/resolve/main/demo/longhua.png" width="150"/></td>
+
+<td><img src="https://huggingface.co/datasets/Kuiee/AerialMetric-ECCV2026/resolve/main/demo/odm1.jpg" width="150"/></td>
+<td><img src="https://huggingface.co/datasets/Kuiee/AerialMetric-ECCV2026/resolve/main/demo/odm1.png" width="150"/></td>
+
+<td><img src="https://huggingface.co/datasets/Kuiee/AerialMetric-ECCV2026/resolve/main/demo/odm2.jpg" width="150"/></td>
+<td><img src="https://huggingface.co/datasets/Kuiee/AerialMetric-ECCV2026/resolve/main/demo/odm2.png" width="150"/></td>
+</tr>
+
+<tr>
+<td align="center">longhua</td>
+<td align="center">depth</td>
+<td align="center">odm1</td>
+<td align="center">depth</td>
+<td align="center">odm2</td>
+<td align="center">depth</td>
+</tr>
+
+
+<tr>
+<td><img src="https://huggingface.co/datasets/Kuiee/AerialMetric-ECCV2026/resolve/main/demo/odm6.jpg" width="150"/></td>
+<td><img src="https://huggingface.co/datasets/Kuiee/AerialMetric-ECCV2026/resolve/main/demo/odm6.png" width="150"/></td>
+
+<td><img src="https://huggingface.co/datasets/Kuiee/AerialMetric-ECCV2026/resolve/main/demo/polytech.jpg" width="150"/></td>
+<td><img src="https://huggingface.co/datasets/Kuiee/AerialMetric-ECCV2026/resolve/main/demo/polytech.png" width="150"/></td>
+
+<td><img src="https://huggingface.co/datasets/Kuiee/AerialMetric-ECCV2026/resolve/main/demo/yingrenshi.jpg" width="150"/></td>
+<td><img src="https://huggingface.co/datasets/Kuiee/AerialMetric-ECCV2026/resolve/main/demo/yingrenshi.png" width="150"/></td>
+</tr>
+
+<tr>
+<td align="center">odm6</td>
+<td align="center">depth</td>
+<td align="center">polytech</td>
+<td align="center">depth</td>
+<td align="center">yingrenshi</td>
+<td align="center">depth</td>
+</tr>
+
+</table>
 
 ## Benchmark Entry Points
 
