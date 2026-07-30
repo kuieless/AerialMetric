@@ -33,90 +33,147 @@
 
 ## Visual Examples
 
-Each row shows paired examples. RGB images and metric-depth visualizations share the same basename in `demo/`.
+Each example contains an RGB image and its corresponding metric-depth visualization. 
+The RGB image and depth visualization share the same basename in `demo/`.
 
+<table width="100%">
+<tr>
+
+<td width="33%" align="center">
 <table>
 <tr>
-<td><img src="https://huggingface.co/datasets/Kuiee/AerialMetric-ECCV2026/resolve/main/demo/artsci.jpg" width="150"/></td>
-<td><img src="https://huggingface.co/datasets/Kuiee/AerialMetric-ECCV2026/resolve/main/demo/artsci.png" width="150"/></td>
-
-<td><img src="https://huggingface.co/datasets/Kuiee/AerialMetric-ECCV2026/resolve/main/demo/campus.jpg" width="150"/></td>
-<td><img src="https://huggingface.co/datasets/Kuiee/AerialMetric-ECCV2026/resolve/main/demo/campus.png" width="150"/></td>
-
-<td><img src="https://huggingface.co/datasets/Kuiee/AerialMetric-ECCV2026/resolve/main/demo/factory.jpg" width="150"/></td>
-<td><img src="https://huggingface.co/datasets/Kuiee/AerialMetric-ECCV2026/resolve/main/demo/factory.png" width="150"/></td>
+<td><img src="https://huggingface.co/datasets/Kuiee/AerialMetric-ECCV2026/resolve/main/demo/artsci.jpg" width="100%"></td>
+<td><img src="https://huggingface.co/datasets/Kuiee/AerialMetric-ECCV2026/resolve/main/demo/artsci.png" width="100%"></td>
 </tr>
+</table>
+<em>artsci</em>
+</td>
 
+<td width="33%" align="center">
+<table>
 <tr>
-<td align="center">artsci</td>
-<td align="center">depth</td>
-<td align="center">campus</td>
-<td align="center">depth</td>
-<td align="center">factory</td>
-<td align="center">depth</td>
+<td><img src="https://huggingface.co/datasets/Kuiee/AerialMetric-ECCV2026/resolve/main/demo/campus.jpg" width="100%"></td>
+<td><img src="https://huggingface.co/datasets/Kuiee/AerialMetric-ECCV2026/resolve/main/demo/campus.png" width="100%"></td>
 </tr>
+</table>
+<em>campus</em>
+</td>
 
-
+<td width="33%" align="center">
+<table>
 <tr>
-<td><img src="https://huggingface.co/datasets/Kuiee/AerialMetric-ECCV2026/resolve/main/demo/farm.jpg" width="150"/></td>
-<td><img src="https://huggingface.co/datasets/Kuiee/AerialMetric-ECCV2026/resolve/main/demo/farm.png" width="150"/></td>
-
-<td><img src="https://huggingface.co/datasets/Kuiee/AerialMetric-ECCV2026/resolve/main/demo/gress.jpg" width="150"/></td>
-<td><img src="https://huggingface.co/datasets/Kuiee/AerialMetric-ECCV2026/resolve/main/demo/gress.png" width="150"/></td>
-
-<td><img src="https://huggingface.co/datasets/Kuiee/AerialMetric-ECCV2026/resolve/main/demo/lfls2.jpg" width="150"/></td>
-<td><img src="https://huggingface.co/datasets/Kuiee/AerialMetric-ECCV2026/resolve/main/demo/lfls2.png" width="150"/></td>
+<td><img src="https://huggingface.co/datasets/Kuiee/AerialMetric-ECCV2026/resolve/main/demo/factory.jpg" width="100%"></td>
+<td><img src="https://huggingface.co/datasets/Kuiee/AerialMetric-ECCV2026/resolve/main/demo/factory.png" width="100%"></td>
 </tr>
+</table>
+<em>factory</em>
+</td>
 
-<tr>
-<td align="center">farm</td>
-<td align="center">depth</td>
-<td align="center">gress</td>
-<td align="center">depth</td>
-<td align="center">lfls2</td>
-<td align="center">depth</td>
 </tr>
 
 
 <tr>
-<td><img src="https://huggingface.co/datasets/Kuiee/AerialMetric-ECCV2026/resolve/main/demo/longhua.jpg" width="150"/></td>
-<td><img src="https://huggingface.co/datasets/Kuiee/AerialMetric-ECCV2026/resolve/main/demo/longhua.png" width="150"/></td>
 
-<td><img src="https://huggingface.co/datasets/Kuiee/AerialMetric-ECCV2026/resolve/main/demo/odm1.jpg" width="150"/></td>
-<td><img src="https://huggingface.co/datasets/Kuiee/AerialMetric-ECCV2026/resolve/main/demo/odm1.png" width="150"/></td>
+<td width="33%" align="center">
+<table>
+<tr>
+<td><img src="https://huggingface.co/datasets/Kuiee/AerialMetric-ECCV2026/resolve/main/demo/farm.jpg" width="100%"></td>
+<td><img src="https://huggingface.co/datasets/Kuiee/AerialMetric-ECCV2026/resolve/main/demo/farm.png" width="100%"></td>
+</tr>
+</table>
+<em>farm</em>
+</td>
 
-<td><img src="https://huggingface.co/datasets/Kuiee/AerialMetric-ECCV2026/resolve/main/demo/odm2.jpg" width="150"/></td>
-<td><img src="https://huggingface.co/datasets/Kuiee/AerialMetric-ECCV2026/resolve/main/demo/odm2.png" width="150"/></td>
+<td width="33%" align="center">
+<table>
+<tr>
+<td><img src="https://huggingface.co/datasets/Kuiee/AerialMetric-ECCV2026/resolve/main/demo/gress.jpg" width="100%"></td>
+<td><img src="https://huggingface.co/datasets/Kuiee/AerialMetric-ECCV2026/resolve/main/demo/gress.png" width="100%"></td>
+</tr>
+</table>
+<em>gress</em>
+</td>
+
+<td width="33%" align="center">
+<table>
+<tr>
+<td><img src="https://huggingface.co/datasets/Kuiee/AerialMetric-ECCV2026/resolve/main/demo/lfls2.jpg" width="100%"></td>
+<td><img src="https://huggingface.co/datasets/Kuiee/AerialMetric-ECCV2026/resolve/main/demo/lfls2.png" width="100%"></td>
+</tr>
+</table>
+<em>lfls2</em>
+</td>
+
 </tr>
 
+
 <tr>
-<td align="center">longhua</td>
-<td align="center">depth</td>
-<td align="center">odm1</td>
-<td align="center">depth</td>
-<td align="center">odm2</td>
-<td align="center">depth</td>
+
+<td width="33%" align="center">
+<table>
+<tr>
+<td><img src="https://huggingface.co/datasets/Kuiee/AerialMetric-ECCV2026/resolve/main/demo/longhua.jpg" width="100%"></td>
+<td><img src="https://huggingface.co/datasets/Kuiee/AerialMetric-ECCV2026/resolve/main/demo/longhua.png" width="100%"></td>
+</tr>
+</table>
+<em>longhua</em>
+</td>
+
+<td width="33%" align="center">
+<table>
+<tr>
+<td><img src="https://huggingface.co/datasets/Kuiee/AerialMetric-ECCV2026/resolve/main/demo/odm1.jpg" width="100%"></td>
+<td><img src="https://huggingface.co/datasets/Kuiee/AerialMetric-ECCV2026/resolve/main/demo/odm1.png" width="100%"></td>
+</tr>
+</table>
+<em>odm1</em>
+</td>
+
+<td width="33%" align="center">
+<table>
+<tr>
+<td><img src="https://huggingface.co/datasets/Kuiee/AerialMetric-ECCV2026/resolve/main/demo/odm2.jpg" width="100%"></td>
+<td><img src="https://huggingface.co/datasets/Kuiee/AerialMetric-ECCV2026/resolve/main/demo/odm2.png" width="100%"></td>
+</tr>
+</table>
+<em>odm2</em>
+</td>
+
 </tr>
 
 
 <tr>
-<td><img src="https://huggingface.co/datasets/Kuiee/AerialMetric-ECCV2026/resolve/main/demo/odm6.jpg" width="150"/></td>
-<td><img src="https://huggingface.co/datasets/Kuiee/AerialMetric-ECCV2026/resolve/main/demo/odm6.png" width="150"/></td>
 
-<td><img src="https://huggingface.co/datasets/Kuiee/AerialMetric-ECCV2026/resolve/main/demo/polytech.jpg" width="150"/></td>
-<td><img src="https://huggingface.co/datasets/Kuiee/AerialMetric-ECCV2026/resolve/main/demo/polytech.png" width="150"/></td>
-
-<td><img src="https://huggingface.co/datasets/Kuiee/AerialMetric-ECCV2026/resolve/main/demo/yingrenshi.jpg" width="150"/></td>
-<td><img src="https://huggingface.co/datasets/Kuiee/AerialMetric-ECCV2026/resolve/main/demo/yingrenshi.png" width="150"/></td>
-</tr>
-
+<td width="33%" align="center">
+<table>
 <tr>
-<td align="center">odm6</td>
-<td align="center">depth</td>
-<td align="center">polytech</td>
-<td align="center">depth</td>
-<td align="center">yingrenshi</td>
-<td align="center">depth</td>
+<td><img src="https://huggingface.co/datasets/Kuiee/AerialMetric-ECCV2026/resolve/main/demo/odm6.jpg" width="100%"></td>
+<td><img src="https://huggingface.co/datasets/Kuiee/AerialMetric-ECCV2026/resolve/main/demo/odm6.png" width="100%"></td>
+</tr>
+</table>
+<em>odm6</em>
+</td>
+
+<td width="33%" align="center">
+<table>
+<tr>
+<td><img src="https://huggingface.co/datasets/Kuiee/AerialMetric-ECCV2026/resolve/main/demo/polytech.jpg" width="100%"></td>
+<td><img src="https://huggingface.co/datasets/Kuiee/AerialMetric-ECCV2026/resolve/main/demo/polytech.png" width="100%"></td>
+</tr>
+</table>
+<em>polytech</em>
+</td>
+
+<td width="33%" align="center">
+<table>
+<tr>
+<td><img src="https://huggingface.co/datasets/Kuiee/AerialMetric-ECCV2026/resolve/main/demo/yingrenshi.jpg" width="100%"></td>
+<td><img src="https://huggingface.co/datasets/Kuiee/AerialMetric-ECCV2026/resolve/main/demo/yingrenshi.png" width="100%"></td>
+</tr>
+</table>
+<em>yingrenshi</em>
+</td>
+
 </tr>
 
 </table>
