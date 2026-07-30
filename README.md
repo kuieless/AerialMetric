@@ -36,6 +36,42 @@
 Each row shows paired examples. The RGB image and metric-depth visualization share the same basename in `demo/`.
 
 <table>
+
+<tr>
+<td align="center"><img src="https://huggingface.co/datasets/Kuiee/AerialMetric-ECCV2026/resolve/main/demo/artsci.jpg" width="160"></td>
+<td align="center"><img src="https://huggingface.co/datasets/Kuiee/AerialMetric-ECCV2026/resolve/main/demo/artsci.png" width="160"></td>
+
+<td align="center"><img src="https://huggingface.co/datasets/Kuiee/AerialMetric-ECCV2026/resolve/main/demo/campus.jpg" width="160"></td>
+<td align="center"><img src="https://huggingface.co/datasets/Kuiee/AerialMetric-ECCV2026/resolve/main/demo/campus.png" width="160"></td>
+
+<td align="center"><img src="https://huggingface.co/datasets/Kuiee/AerialMetric-ECCV2026/resolve/main/demo/factory.jpg" width="160"></td>
+<td align="center"><img src="https://huggingface.co/datasets/Kuiee/AerialMetric-ECCV2026/resolve/main/demo/factory.png" width="160"></td>
+</tr>
+
+<tr>
+<td colspan="2" align="center"><b>artsci</b></td>
+<td colspan="2" align="center"><b>campus</b></td>
+<td colspan="2" align="center"><b>factory</b></td>
+</tr>
+
+
+<tr>
+<td align="center"><img src="https://huggingface.co/datasets/Kuiee/AerialMetric-ECCV2026/resolve/main/demo/farm.jpg" width="160"></td>
+<td align="center"><img src="https://huggingface.co/datasets/Kuiee/AerialMetric-ECCV2026/resolve/main/demo/farm.png" width="160"></td>
+
+<td align="center"><img src="https://huggingface.co/datasets/Kuiee/AerialMetric-ECCV2026/resolve/main/demo/gress.jpg" width="160"></td>
+<td align="center"><img src="https://huggingface.co/datasets/Kuiee/AerialMetric-ECCV2026/resolve/main/demo/gress.png" width="160"></td>
+
+<td align="center"><img src="https://huggingface.co/datasets/Kuiee/AerialMetric-ECCV2026/resolve/main/demo/lfls2.jpg" width="160"></td>
+<td align="center"><img src="https://huggingface.co/datasets/Kuiee/AerialMetric-ECCV2026/resolve/main/demo/lfls2.png" width="160"></td>
+</tr>
+
+<tr>
+<td colspan="2" align="center"><b>farm</b></td>
+<td colspan="2" align="center"><b>gress</b></td>
+<td colspan="2" align="center"><b>lfls2</b></td>
+</tr>
+  
 <tr>
 <td align="center"><img src="https://huggingface.co/datasets/Kuiee/AerialMetric-ECCV2026/resolve/main/demo/longhua.jpg" width="160"></td>
 <td align="center"><img src="https://huggingface.co/datasets/Kuiee/AerialMetric-ECCV2026/resolve/main/demo/longhua.png" width="160"></td>
