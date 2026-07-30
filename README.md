@@ -5,7 +5,7 @@
 [![arXiv](https://img.shields.io/badge/arXiv-2606.29716-b31b1b.svg)](https://arxiv.org/abs/2606.29716)
 [![Project Page](https://img.shields.io/badge/Project-Page-blue)](https://kuieless.github.io/AerialMetric-ECCV2026-page/)
 [![Dataset & Weight-PartA](https://img.shields.io/badge/Dataset-HuggingFace-yellow)](https://huggingface.co/datasets/Kuiee/AerialMetric-ECCV2026)
-[![Baidu Netdisk](https://img.shields.io/badge/Dataset-Baidu%20Netdisk-2932e1)]([https://pan.baidu.com/s/1yHkp-VT7KfJ-4-2mjKAg1qA?pwd=ECCV](https://pan.baidu.com/s/1yHkp-VT7KfJ4-2mjKAg1qA?pwd=ECCV))
+[![Baidu Netdisk](https://img.shields.io/badge/Dataset-Baidu%20Netdisk-2932e1)]([[https://pan.baidu.com/s/1yHkp-VT7KfJ-4-2mjKAg1qA?pwd=ECCV](https://pan.baidu.com/s/1yHkp-VT7KfJ4-2mjKAg1qA?pwd=ECCV](https://pan.baidu.com/s/1yHkp-VT7KfJ4-2mjKAg1qA?pwd=ECCV)))
 
 **[Zhongqiang Song](https://kuieless.github.io/Kuie-s-Academic-Pages/)<sup>1</sup> &nbsp;&nbsp; [Guanying Chen](https://guanyingc.github.io/)<sup>1,✉</sup> &nbsp;&nbsp; [Yuqi Zhang](https://zyqz97.github.io/)<sup>2,3</sup> &nbsp;&nbsp; Yin Zou<sup>1</sup>**
 
