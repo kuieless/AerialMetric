@@ -29,6 +29,7 @@
 </div>
 
 ## News
+
 - [ ] Maintain a continuously updated benchmark for aerial monocular depth estimation, covering state-of-the-art models and public aerial depth datasets.
 - ✅ **2026-07-24:** The code repository is now publicly available and includes both inference and benchmark scripts.
 - 🎉 **2026-06-18:** AerialMetric was accepted to ECCV 2026.
