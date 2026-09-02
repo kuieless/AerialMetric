@@ -9,7 +9,6 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="LoRA Inference Pipeline")
     parser.add_argument("--input", required=True, help="Input root directory")
     parser.add_argument("--output", required=True, help="Output root directory")
-    parser.add_argument("--config", required=True, help="Path to LoRA config JSON")
     parser.add_argument("--weight", required=True, help="Path to LoRA .pt weight")
     parser.add_argument("--resize", type=int, default=1024, help="Resize size; 0 means original resolution")
     parser.add_argument("--ratio", type=float, default=1.0, help="Sampling ratio; 1.0 means full dataset")
@@ -36,7 +35,6 @@ if __name__ == "__main__":
     run_inference_pipeline(
         input_roots=input_roots,
         output_root=output_root,
-        lora_config=args.config,
         lora_weight=args.weight,
         sampling_ratio=args.ratio,
         resize=real_resize,

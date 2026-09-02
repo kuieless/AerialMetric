@@ -7,7 +7,6 @@ EXP_NAME="64r-2k"
 
 # 权重设置 (修改这里来跑不同的 Checkpoint)
 CHECKPOINT_STEP="00002000"
-LORA_CONFIG="/home/szq/moge2/MoGe/configs/Final_train/train-l-patch-lora.json"
 LORA_WEIGHT="/home/szq/moge2/MoGe/workspace/final-fintune2-130-lora-final6-64r/checkpoint/${CHECKPOINT_STEP}.pt"
 LORA_RANK=64  # Allowed: 64, 96, 128. alpha is set to 2 * rank.
 INTRINSICS_MODE="auto"  # auto, load, or none.
@@ -33,7 +32,6 @@ set -e  # 遇到错误停止
 echo "=========================================================="
 echo "🚀 启动 LoRA 全流程 (Step: ${CHECKPOINT_STEP})"
 echo "📂 数据源:   ${DATA_ROOT}"
-echo "🔧 Config:   ${LORA_CONFIG}"
 echo "⚖️  Weight:   ${LORA_WEIGHT}"
 echo "🧩 LoRA:     rank=${LORA_RANK}, alpha=$((2 * LORA_RANK))"
 echo "📷 Intrin.:  ${INTRINSICS_MODE}"
@@ -48,7 +46,6 @@ echo ">>> [Step 1/3] Running Inference (LoRA)..."
 python "${SCRIPT_DIR}/a-infer_lora96-norm.py" \
     --input "${DATA_ROOT}" \
     --output "${INFER_OUT}" \
-    --config "${LORA_CONFIG}" \
     --weight "${LORA_WEIGHT}" \
     --ratio "${SAMPLING_RATIO}" \
     --resize "${RESIZE_VAL}" \

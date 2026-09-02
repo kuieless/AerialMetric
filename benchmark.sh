@@ -27,7 +27,6 @@ MOGE2_BASE="/home/szq/moge2-ed/vitl-normal.pt"
 
 # MoGe-2 Aerial LoRA weights (paper checkpoint)
 MOGE2_AERIAL="/data1/szq/moge2/权重/workspace/weights/Moge2-Aerial.pt"
-LORA_CONFIG="$PROJECT_ROOT/MoGe/configs/Final_train/config-lora-all.json"
 
 # ---- Datasets ----
 # Standard layout (no per-sample intrinsics)
@@ -58,7 +57,7 @@ aerial() {
     cd "$PROJECT_ROOT"
     conda run -n "$CONDA_ENV" python "$AERIAL_CLI" \
         --model_type "$mt" --checkpoint "$ckpt" \
-        --lora_config "$LORA_CONFIG" --output_dir "$full_out" \
+        --output_dir "$full_out" \
         --gpu "$gpu" --resize 0 --batch_size "$bsz" \
         --intrinsics_mode "$intr" --mask_mode "$mask" \
         --cleanup_intermediate "$@"
@@ -84,7 +83,7 @@ ground_lora() {
     echo "[$(ts)] [GPU$gpu] START: $tag"
     cd "$GROUND_DIR"
     local cmd="conda run -n $CONDA_ENV python moge/scripts/eval_baselinelora.py \
-        --baseline baselines/moge2_lora.py --lora_config $LORA_CONFIG \
+        --baseline baselines/moge2_lora.py \
         --lora_weight $lora_w --lora_rank 96 --resolution_level 9 \
         --config $GROUND_CFG --output $out_json --device cuda:0"
     [ "$oracle" = "yes" ] && cmd="$cmd --oracle"

@@ -24,21 +24,29 @@ setup_moge_path()
 
 try:
     from moge.model import import_model_class_by_version
+    from moge.lora_model_config import (
+        MODEL_CONFIG, MODEL_VERSION, LORA_TARGET_MODULES,
+        LORA_MODULES_TO_SAVE, LORA_ALPHA_MULTIPLIER,
+    )
     import utils3d
 except ImportError:
     _repo_root = Path(__file__).resolve().parents[2]
     sys.path.insert(0, str(_repo_root))
     from moge.model import import_model_class_by_version
+    from moge.lora_model_config import (
+        MODEL_CONFIG, MODEL_VERSION, LORA_TARGET_MODULES,
+        LORA_MODULES_TO_SAVE, LORA_ALPHA_MULTIPLIER,
+    )
     import utils3d
 
 # Core engine
 
 class MogeLoRAEngine:
-    def __init__(self, config_path, lora_path, device="cuda", fp16=True, lora_rank=96, intrinsics_mode="none", apply_mask=True):
+    def __init__(self, lora_path, device="cuda", fp16=True, lora_rank=96, intrinsics_mode="none", apply_mask=True):
         self.device = torch.device(device)
         self.fp16 = fp16
         self.lora_rank = lora_rank
-        self.lora_alpha = 2 * lora_rank
+        self.lora_alpha = LORA_ALPHA_MULTIPLIER * lora_rank
         if intrinsics_mode not in {"auto", "load", "none"}:
             raise ValueError("intrinsics_mode must be one of: auto, load, none")
         self.intrinsics_mode = intrinsics_mode
@@ -47,19 +55,13 @@ class MogeLoRAEngine:
         print(f"\n[LoRA Engine] initializing...")
         print(f"   LoRA rank={self.lora_rank}, alpha={self.lora_alpha}")
         print(f"   Intrinsics mode={self.intrinsics_mode}")
-        with open(config_path, 'r') as f:
-            train_config = json.load(f)
-        
-        model_version = train_config.get('model_version', 'v2')
-        MoGeModel = import_model_class_by_version(model_version)
-        self.model = MoGeModel(**train_config['model'])
+        MoGeModel = import_model_class_by_version(MODEL_VERSION)
+        self.model = MoGeModel(**MODEL_CONFIG)
         
         # LoRA Config
-        LORA_TARGETS = ["qkv", "proj", "fc1", "fc2"]
-        HEADS_TO_SAVE = ["scale_head"] 
         peft_config = LoraConfig(
             r=self.lora_rank, lora_alpha=self.lora_alpha, bias="none",
-            target_modules=LORA_TARGETS, modules_to_save=HEADS_TO_SAVE 
+            target_modules=LORA_TARGET_MODULES, modules_to_save=LORA_MODULES_TO_SAVE
         )
         self.model = get_peft_model(self.model, peft_config)
         
@@ -82,7 +84,7 @@ class MogeLoRAEngine:
                 base_injected_k = ".".join(parts[:-1] + ["base_layer", parts[-1]])
                 if base_injected_k in model_keys:
                     new_state_dict[base_injected_k] = v; continue
-            for head in HEADS_TO_SAVE:
+            for head in LORA_MODULES_TO_SAVE:
                 if k.startswith(head):
                     suffix = k[len(head)+1:]
                     trainable_k = f"base_model.model.{head}.modules_to_save.default.{suffix}"
@@ -269,7 +271,7 @@ class DatasetAutoParser:
 # Public pipeline API
 
 def run_inference_pipeline(
-    input_roots, output_root, lora_config, lora_weight,
+    input_roots, output_root, lora_weight,
     sampling_ratio=1.0, resize=1024, device="cuda", batch_size=4,
     lora_rank=96, intrinsics_mode="none", apply_mask=True,
 ):
@@ -282,7 +284,6 @@ def run_inference_pipeline(
     if not tasks: return
 
     engine = MogeLoRAEngine(
-        lora_config,
         lora_weight,
         device=device,
         lora_rank=lora_rank,

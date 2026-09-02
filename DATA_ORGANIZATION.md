@@ -113,7 +113,6 @@ CUDA_VISIBLE_DEVICES=0 conda run -n moge310 python \
   MoGe/moge/scripts/code-final/aerial_eval_cli.py \
   --model_type lora96 \
   --checkpoint /path/to/Moge2-Aerial.pt \
-  --lora_config MoGe/configs/Final_train/config-lora-all.json \
   --decoupled_input /path/to/decoupled \
   --decoupled_gt /path/to/decoupled-norm \
   --decoupled_csv_dir /path/to/decoupled \
@@ -137,7 +136,6 @@ CUDA_VISIBLE_DEVICES=0 conda run -n moge310 python \
   MoGe/moge/scripts/code-final/aerial_eval_cli.py \
   --model_type lora96 \
   --checkpoint /path/to/Moge2-Aerial.pt \
-  --lora_config MoGe/configs/Final_train/config-lora-all.json \
   --decoupled_input /path/to/<decoupled_norm_root> \
   --decoupled_gt /path/to/<decoupled_norm_root> \
   --decoupled_csv_dir /path/to/<decoupled_norm_root> \

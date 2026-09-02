@@ -90,8 +90,6 @@ def process_checkpoint(ckpt_path, args, env):
     cmd = [
         "python",
         "moge/scripts/eval_baselinelora.py",
-        "--lora_config",
-        args.lora_config,
         "--lora_weight",
         ckpt_path,
         "--config",
@@ -134,7 +132,6 @@ def main():
     ckpt_group.add_argument("--checkpoint", default="", help="Single .pt checkpoint")
     ckpt_group.add_argument("--checkpoint_root", default="", help="Directory containing .pt checkpoints")
 
-    parser.add_argument("--lora_config", required=True, help="Path to the LoRA train config JSON")
     parser.add_argument("--config", required=True, help="Path to the ground benchmark config JSON")
     parser.add_argument("--output_dir", required=True, help="Root output directory")
     parser.add_argument("--gpu", default="0", help="CUDA_VISIBLE_DEVICES")

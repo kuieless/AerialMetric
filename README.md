@@ -141,7 +141,6 @@ python demo_infer.py \
   --input video.mp4 \
   --model lora \
   --checkpoint /path/to/Moge2-Aerial.pt \
-  --lora_config MoGe/configs/Final_train/config-lora-all.json \
   --output ./demo_output \
   --stride 5
 
@@ -150,7 +149,6 @@ python demo_infer.py \
   --input ./images/ \
   --model lora \
   --checkpoint /path/to/Moge2-Aerial.pt \
-  --lora_config MoGe/configs/Final_train/config-lora-all.json \
   --output ./demo_output \
   --resize 1024 \
   --resolution_level 9 \
@@ -165,8 +163,7 @@ python demo_infer.py \
 | **Required** | `--input` | — | Image / video / folder path |
 | | `--model` | — | `vitl` (base) or `lora` (LoRA fine-tuned) |
 | | `--checkpoint` | — | Path to `.pt` checkpoint |
-| **LoRA** | `--lora_config` | — | LoRA config JSON (required for `--model lora`) |
-| | `--lora_rank` | 96 | LoRA rank |
+| **LoRA** | `--lora_rank` | 96 | LoRA rank |
 | **Inference** | `--resize` | 0 | Long-edge resize target (0=original). Padded to ×14 |
 | | `--resolution_level` | 9 | MoGe2 quality/speed: 0 (fastest) ~ 9 (best) |
 | | `--force_projection` | on | Recompute point map from depth for consistency |

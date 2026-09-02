@@ -123,9 +123,6 @@ def dataset_intrinsics_mode(args, ds_name):
 
 
 def validate_args(args):
-    if args.model_type in LORA_RANK_BY_TYPE and not args.lora_config:
-        raise SystemExit("--lora_config is required for lora64/lora96/lora128")
-
     datasets = active_datasets(args)
     if not datasets:
         raise SystemExit("At least one dataset input is required: --decoupled_input, --oblique_input, or --wild_input")
@@ -152,7 +149,6 @@ def inference_command(args, ds_name, ckpt_path, dataset_input, dataset_output):
             python, "a-infer_lora96-norm.py",
             "--input", dataset_input,
             "--output", dataset_output,
-            "--config", args.lora_config,
             "--weight", ckpt_path,
             "--ratio", str(args.sampling_ratio),
             "--resize", str(args.resize),
@@ -319,7 +315,6 @@ def main():
     ckpt_group.add_argument("--checkpoint", default="", help="Single checkpoint path")
     ckpt_group.add_argument("--checkpoint_root", default="", help="Directory containing .pt checkpoints")
 
-    parser.add_argument("--lora_config", default="", help="LoRA training config JSON; required for LoRA variants")
     parser.add_argument("--output_dir", required=True, help="Root output directory")
     parser.add_argument("--gpu", default="0", help="CUDA_VISIBLE_DEVICES value")
 

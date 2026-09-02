@@ -5,7 +5,6 @@ Runs inference -> extraction -> evaluation across Decoupled, Oblique, and Wild d
 Usage:
     python batch_eval.py \
         --checkpoint_root /path/to/checkpoints \
-        --lora_config configs/Final_train/config-lora-all.json \
         --decoupled_path /path/to/decoupled \
         --oblique_path /path/to/Oblique \
         --wild_path /path/to/Wild \
@@ -144,8 +143,7 @@ def process_checkpoint(ckpt_path, args, env):
                 "python", "a-infer_lora96-norm.py",
                 "--input", actual_input,
                 "--output", expected_out,
-                "--config", args.lora_config,
-                "--weight", ckpt_path,
+        "--weight", ckpt_path,
                 "--ratio", str(args.sampling_ratio),
                 "--resize", str(args.resize),
                 "--batch_size", str(args.batch_size),
@@ -218,7 +216,6 @@ def process_checkpoint(ckpt_path, args, env):
 def main():
     parser = argparse.ArgumentParser(description="LoRA Aerial Batch Evaluation")
     parser.add_argument("--checkpoint_root", required=True, help="Directory containing .pt checkpoints")
-    parser.add_argument("--lora_config", required=True, help="Path to LoRA config JSON")
     parser.add_argument("--decoupled_path", default="", help="Path to Decoupled dataset")
     parser.add_argument("--oblique_path", default="", help="Path to Oblique dataset")
     parser.add_argument("--wild_path", default="", help="Path to Wild dataset")

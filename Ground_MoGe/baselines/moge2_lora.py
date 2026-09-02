@@ -1,5 +1,4 @@
 # Reference: https://github.com/microsoft/MoGe
-import json
 from pathlib import Path
 from typing import Dict, Optional
 
@@ -9,6 +8,10 @@ import utils3d
 from peft import LoraConfig, get_peft_model
 
 from moge.model import import_model_class_by_version
+from moge.lora_model_config import (
+    MODEL_CONFIG, MODEL_VERSION, LORA_TARGET_MODULES,
+    LORA_MODULES_TO_SAVE, LORA_ALPHA_MULTIPLIER,
+)
 from moge.test.baseline import MGEBaselineInterface
 
 
@@ -21,7 +24,6 @@ class Baseline(MGEBaselineInterface):
 
     def __init__(
         self,
-        lora_config_path: str,
         lora_weight_path: str,
         lora_rank: int,
         resolution_level: int,
@@ -30,23 +32,19 @@ class Baseline(MGEBaselineInterface):
     ):
         self.device = torch.device(device)
         self.lora_rank = int(lora_rank)
-        self.lora_alpha = 2 * self.lora_rank
+        self.lora_alpha = LORA_ALPHA_MULTIPLIER * self.lora_rank
         self.resolution_level = int(resolution_level)
         self.use_fp16 = bool(use_fp16)
 
-        with open(lora_config_path, "r", encoding="utf-8") as f:
-            train_config = json.load(f)
-
-        model_version = train_config.get("model_version", "v2")
-        MoGeModel = import_model_class_by_version(model_version)
-        self.model = MoGeModel(**train_config["model"])
+        MoGeModel = import_model_class_by_version(MODEL_VERSION)
+        self.model = MoGeModel(**MODEL_CONFIG)
 
         peft_config = LoraConfig(
             r=self.lora_rank,
             lora_alpha=self.lora_alpha,
             bias="none",
-            target_modules=["qkv", "proj", "fc1", "fc2"],
-            modules_to_save=["scale_head"],
+            target_modules=LORA_TARGET_MODULES,
+            modules_to_save=LORA_MODULES_TO_SAVE,
         )
         self.model = get_peft_model(self.model, peft_config)
 
@@ -76,7 +74,7 @@ class Baseline(MGEBaselineInterface):
                     new_state_dict[base_injected_k] = v
                     continue
 
-            for head in ["scale_head"]:
+            for head in LORA_MODULES_TO_SAVE:
                 if k.startswith(head):
                     suffix = k[len(head) + 1 :]
                     trainable_k = f"base_model.model.{head}.modules_to_save.default.{suffix}"
@@ -91,7 +89,6 @@ class Baseline(MGEBaselineInterface):
             self.model.half()
 
     @click.command()
-    @click.option("--lora_config", "lora_config_path", type=click.Path(), required=True, help="Path to the LoRA training config JSON.")
     @click.option("--lora_weight", "lora_weight_path", type=click.Path(), required=True, help="Path to the LoRA checkpoint (.pt).")
     @click.option("--lora_rank", type=int, default=96, show_default=True, help="LoRA rank used for the adapter.")
     @click.option("--resolution_level", type=int, default=9, show_default=True, help="MoGe2 resolution level [0..9].")
@@ -99,7 +96,6 @@ class Baseline(MGEBaselineInterface):
     @click.option("--device", type=str, default="cuda:0", show_default=True, help="Device to use.")
     @staticmethod
     def load(
-        lora_config_path: str,
         lora_weight_path: str,
         lora_rank: int = 96,
         resolution_level: int = 9,
@@ -107,7 +103,6 @@ class Baseline(MGEBaselineInterface):
         device: str = "cuda:0",
     ):
         return Baseline(
-            lora_config_path=lora_config_path,
             lora_weight_path=lora_weight_path,
             lora_rank=lora_rank,
             resolution_level=resolution_level,

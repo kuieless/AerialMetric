@@ -24,31 +24,29 @@ from moge.utils.geometry_torch import intrinsics_to_fov
 from moge.utils.vis import colorize_depth, colorize_normal
 from moge.utils.tools import key_average, timeit
 from moge.model import import_model_class_by_version
+from moge.lora_model_config import (
+    MODEL_CONFIG, MODEL_VERSION, LORA_TARGET_MODULES,
+    LORA_MODULES_TO_SAVE, LORA_ALPHA_MULTIPLIER,
+)
 
 # ==============================================================================
 # 🔥 核心类：LoRA 基线模型与批量推理逻辑 (内置 Ultimate Oracle)
 # ==============================================================================
 class LoRABaseline:
-    def __init__(self, lora_config_path, lora_weight_path, device="cuda", fp16=True, lora_rank=96):
+    def __init__(self, lora_weight_path, device="cuda", fp16=True, lora_rank=96):
         self.device = torch.device(device)
         self.fp16 = fp16
         self.lora_rank = lora_rank
-        self.lora_alpha = 2 * lora_rank
+        self.lora_alpha = LORA_ALPHA_MULTIPLIER * lora_rank
         print(f"\n📦 Loading LoRA Model...")
         print(f"   LoRA rank={self.lora_rank}, alpha={self.lora_alpha}")
         
-        with open(lora_config_path, 'r') as f:
-            train_config = json.load(f)
+        MoGeModel = import_model_class_by_version(MODEL_VERSION)
+        self.model = MoGeModel(**MODEL_CONFIG)
 
-        model_version = train_config.get('model_version', 'v2')
-        MoGeModel = import_model_class_by_version(model_version)
-        self.model = MoGeModel(**train_config['model'])
-
-        LORA_TARGETS = ["qkv", "proj", "fc1", "fc2"]
-        HEADS_TO_SAVE = ["scale_head"]
         peft_config = LoraConfig(
             r=self.lora_rank, lora_alpha=self.lora_alpha, bias="none",
-            target_modules=LORA_TARGETS, modules_to_save=HEADS_TO_SAVE
+            target_modules=LORA_TARGET_MODULES, modules_to_save=LORA_MODULES_TO_SAVE
         )
         self.model = get_peft_model(self.model, peft_config)
 
@@ -70,7 +68,7 @@ class LoRABaseline:
                 base_injected_k = ".".join(parts[:-1] + ["base_layer", parts[-1]])
                 if base_injected_k in model_keys:
                     new_state_dict[base_injected_k] = v; continue
-            for head in HEADS_TO_SAVE:
+            for head in LORA_MODULES_TO_SAVE:
                 if k.startswith(head):
                     suffix = k[len(head)+1:]
                     trainable_k = f"base_model.model.{head}.modules_to_save.default.{suffix}"
@@ -212,7 +210,6 @@ class LoRABaseline:
 # 🚀 主程序：评测循环 (直接读取 LoRA 配置，不走 --baseline)
 # ==============================================================================
 @click.command(context_settings={"allow_extra_args": True, "ignore_unknown_options": True}, help='Standalone LoRA Evaluation script.')
-@click.option('--lora_config', type=click.Path(), required=True, help='Path to the LoRA config.json.')
 @click.option('--lora_weight', type=click.Path(), required=True, help='Path to the LoRA .pt file.')
 @click.option('--config', 'config_path', type=click.Path(), default='configs/eval/all_benchmarks.json', help='Path to the evaluation configurations.')
 @click.option('--output', '-o', 'output_path',  type=click.Path(), required=True, help='Path to the output json file.')
@@ -223,11 +220,10 @@ class LoRABaseline:
 @click.option('--batch_size', type=int, required=True, help='Batch size for faster evaluation.')
 @click.option('--lora_rank', type=click.Choice(['64', '96', '128']), required=True, help='LoRA rank (r); alpha is set to 2 * rank.')
 @click.pass_context
-def main(ctx: click.Context, lora_config: str, lora_weight: str, config_path: str, oracle_mode: bool, output_path: Union[str, Path], dump_pred: bool, dump_gt: bool, ratio: float, batch_size: int, lora_rank: str):
+def main(ctx: click.Context, lora_weight: str, config_path: str, oracle_mode: bool, output_path: Union[str, Path], dump_pred: bool, dump_gt: bool, ratio: float, batch_size: int, lora_rank: str):
     
     # 🌟 直接初始化我们封装好的 LoRABaseline
     baseline = LoRABaseline(
-        lora_config,
         lora_weight,
         device="cuda",
         lora_rank=int(lora_rank),
