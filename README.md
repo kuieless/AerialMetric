@@ -242,8 +242,8 @@ If you find this work useful, please cite:
 
 
 # License
-The MIT License applies to the original AerialMetric code, MoGe2-Aerial, and benchmark tools in this repository unless otherwise specified. 
- It does not apply to datasets, imagery, model components, or other materials listed in MoGe2-Aerial+Benchmark_LICENSE.md, DATA_LICENSE.md and THIRD_PARTY_LICENSES.md.
+The MIT License applies to the original AerialMetric code, MoGe2-Aerial, and benchmark tools in this repository unless otherwise specified, Please see MoGe2-Aerial+Benchmark_LICENSE.md. 
+ It does not apply to datasets, imagery, model components, or other materials listed in DATA_LICENSE.md and THIRD_PARTY_LICENSES.md.
 
  # Website License
 <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-sa/4.0/88x31.png" /></a><br />This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International License</a>.
