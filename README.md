@@ -33,7 +33,8 @@
 - ✅ **2026-07-24:** The code repository is now publicly available and includes both inference and benchmark scripts.
 - 🎉 **2026-06-18:** AerialMetric was accepted to ECCV 2026.
 
-
+## 3D Point Cloud Vis
+[▶️ Watch the 3D Point Cloud Visualization](https://github.com/kuieless/AerialMetric/blob/main/Video.mp4)
 
 ## Benchmark Entry Points
 
