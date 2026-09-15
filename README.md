@@ -34,7 +34,7 @@
 - 🎉 **2026-06-18:** AerialMetric was accepted to ECCV 2026.
 
 ## 3D Point Cloud Vis
-[▶️ Watch the 3D Point Cloud Visualization](https://github.com/kuieless/AerialMetric/blob/main/Video.mp4)
+[[▶️ Watch the 3D Point Cloud Visualization](https://github.com/kuieless/AerialMetric/blob/main/Video.mp4)](https://github.com/user-attachments/assets/b5f2b799-fbb7-47ae-b953-bda8986e8cf9)
 
 ## Benchmark Entry Points
 
