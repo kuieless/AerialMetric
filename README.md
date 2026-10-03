@@ -97,6 +97,8 @@ python -c "from moge.model.v2 import MoGeModel; print('MoGe OK')"
 
 ## Reproduction
 
+Fine-tune MoGe2-Aerial with configurable training options (`--seed`, `--num_iterations`): [train.sh](Moge2-Aerial-LoraFT/train.sh).
+
 Edit paths in `benchmark.sh` to match your local setup, then run:
 
 ```bash
