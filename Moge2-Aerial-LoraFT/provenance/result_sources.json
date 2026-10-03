@@ -1,0 +1,20 @@
+[
+  {
+    "dataset": "Decoupled",
+    "source": "/data1/szq/moge2/benchmark/retrain-lora96-192-no-ground-seed333-1000iters-20261002_213320-final/exp1_no_intrinsics/lora96/00000999/Extracted/Decoupled/Eval_Report_Decoupled.txt",
+    "sha256": "b80b1bb22a610d6bee9df4e63b671e6e57e9894452e295ea6b9be41a9a26f38e",
+    "result_rows": 11
+  },
+  {
+    "dataset": "Oblique",
+    "source": "/data1/szq/moge2/benchmark/retrain-lora96-192-no-ground-seed333-1000iters-20261002_213320-final/exp1_no_intrinsics/lora96/00000999/Extracted/Oblique/Eval_Report_Oblique_Pixel.txt",
+    "sha256": "29a05351c0904c43af695495454f3c48ebeb1081179ad50093ea203b9eeb292b",
+    "result_rows": 53
+  },
+  {
+    "dataset": "Wild",
+    "source": "/data1/szq/moge2/benchmark/retrain-lora96-192-no-ground-seed333-1000iters-20261002_213320-final/exp1_no_intrinsics/lora96/00000999/Extracted/Wild/Eval_Report_Wild_MultiRange.txt",
+    "sha256": "19bddb0fde71a77c436ca0a1388320b39b9d3727f1854c0f65256715bc16a2dc",
+    "result_rows": 202
+  }
+]

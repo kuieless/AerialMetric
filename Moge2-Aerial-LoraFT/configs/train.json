@@ -1,0 +1,492 @@
+{
+  "data": {
+    "aspect_ratio_range": [
+      0.5,
+      2
+    ],
+    "area_range": [
+      250000,
+      800000
+    ],
+    "clamp_max_depth": 500.0,
+    "center_augmentation": 0.5,
+    "fov_range_absolute": [
+      20,
+      100
+    ],
+    "fov_range_relative": [
+      0.8,
+      1.0
+    ],
+    "image_augmentation": [
+      "jittering",
+      "jpeg_loss",
+      "blurring"
+    ],
+    "datasets": [
+      {
+        "name": "Syn-UE",
+        "path": "/data1/szq/moge2/训练集/Syn-train-UE",
+        "label_type": "ground-b",
+        "weight": 0.5,
+        "depth_unit": 1.0,
+        "index": "train_index.txt",
+        "depth": "depth.npy",
+        "center_augmentation": 0.25,
+        "fov_range_absolute": [
+          20,
+          100
+        ],
+        "fov_range_relative": [
+          0.8,
+          1.0
+        ],
+        "image_augmentation": [
+          "jittering",
+          "jpeg_loss",
+          "blurring",
+          "shot_noise"
+        ]
+      },
+      {
+        "name": "Syn-UE2",
+        "path": "/data1/szq/moge2/训练集/Syn-train-UE2",
+        "label_type": "ground-b",
+        "weight": 0.5,
+        "depth_unit": 1.0,
+        "index": "train_index.txt",
+        "depth": "depth.npy",
+        "center_augmentation": 0.25,
+        "fov_range_absolute": [
+          20,
+          100
+        ],
+        "fov_range_relative": [
+          0.8,
+          1.0
+        ],
+        "image_augmentation": [
+          "jittering",
+          "jpeg_loss",
+          "blurring",
+          "shot_noise"
+        ]
+      },
+      {
+        "name": "Syn-GES",
+        "path": "/data1/szq/moge2/训练集/Syn-train",
+        "label_type": "SFM",
+        "weight": 1.0,
+        "depth_unit": 1.0,
+        "index": "train_index.txt",
+        "depth": "depth.npy",
+        "center_augmentation": 0.25,
+        "fov_range_absolute": [
+          20,
+          100
+        ],
+        "fov_range_relative": [
+          0.8,
+          1.0
+        ],
+        "image_augmentation": [
+          "jittering",
+          "jpeg_loss",
+          "blurring",
+          "shot_noise"
+        ]
+      },
+      {
+        "name": "GAU",
+        "path": "/data1/szq/moge2/训练集/TrainingData_Final_MoGe-All",
+        "label_type": "SFM",
+        "weight": 3.0,
+        "depth_unit": 1.0,
+        "index": "train_index.txt",
+        "depth": "depth.npy",
+        "center_augmentation": 0.25,
+        "fov_range_absolute": [
+          20,
+          100
+        ],
+        "fov_range_relative": [
+          0.8,
+          1.0
+        ],
+        "image_augmentation": [
+          "jittering",
+          "jpeg_loss",
+          "blurring",
+          "shot_noise"
+        ]
+      },
+      {
+        "name": "FOV",
+        "path": "/data1/szq/moge2/训练集/FOV",
+        "label_type": "SFM",
+        "weight": 4.0,
+        "depth_unit": 1.0,
+        "index": "train_index.txt",
+        "depth": "depth.npy",
+        "center_augmentation": 0.25,
+        "fov_range_absolute": [
+          20,
+          100
+        ],
+        "fov_range_relative": [
+          0.8,
+          1.0
+        ],
+        "image_augmentation": [
+          "jittering",
+          "jpeg_loss",
+          "blurring",
+          "shot_noise"
+        ]
+      },
+      {
+        "name": "Lidar",
+        "path": "/data1/szq/moge2/训练集/B",
+        "label_type": "B",
+        "weight": 0.5,
+        "depth_unit": 1.0,
+        "index": "train_index.txt",
+        "depth": "depth.npy",
+        "center_augmentation": 0.25,
+        "fov_range_absolute": [
+          20,
+          100
+        ],
+        "fov_range_relative": [
+          0.8,
+          1.0
+        ],
+        "image_augmentation": [
+          "jittering",
+          "jpeg_loss",
+          "blurring",
+          "shot_noise"
+        ]
+      },
+      {
+        "name": "Lidar2",
+        "path": "/data1/szq/moge2/训练集/B-2",
+        "label_type": "B",
+        "weight": 4.0,
+        "depth_unit": 1.0,
+        "index": "train_index.txt",
+        "depth": "depth.npy",
+        "center_augmentation": 0.25,
+        "fov_range_absolute": [
+          20,
+          100
+        ],
+        "fov_range_relative": [
+          0.8,
+          1.0
+        ],
+        "image_augmentation": [
+          "jittering",
+          "jpeg_loss",
+          "blurring",
+          "shot_noise"
+        ]
+      }
+    ]
+  },
+  "model_version": "v2",
+  "model": {
+    "encoder": {
+      "backbone": "dinov2_vitl14",
+      "intermediate_layers": [
+        5,
+        11,
+        17,
+        23
+      ],
+      "dim_out": 1024
+    },
+    "neck": {
+      "dim_in": [
+        1026,
+        2,
+        2,
+        2,
+        2
+      ],
+      "dim_out": null,
+      "dim_res_blocks": [
+        1024,
+        256,
+        128,
+        64,
+        32
+      ],
+      "num_res_blocks": [
+        0,
+        2,
+        2,
+        2,
+        0
+      ],
+      "res_block_in_norm": "none",
+      "res_block_hidden_norm": "none",
+      "resamplers": [
+        "conv_transpose",
+        "conv_transpose",
+        "conv_transpose",
+        "bilinear"
+      ]
+    },
+    "points_head": {
+      "dim_in": [
+        1024,
+        256,
+        128,
+        64,
+        32
+      ],
+      "dim_out": [
+        null,
+        null,
+        null,
+        null,
+        3
+      ],
+      "dim_res_blocks": [
+        1024,
+        256,
+        128,
+        64,
+        32
+      ],
+      "num_res_blocks": [
+        0,
+        1,
+        1,
+        1,
+        0
+      ],
+      "res_block_in_norm": "none",
+      "res_block_hidden_norm": "none",
+      "resamplers": [
+        "conv_transpose",
+        "conv_transpose",
+        "conv_transpose",
+        "bilinear"
+      ]
+    },
+    "normal_head": {
+      "dim_in": [
+        1024,
+        256,
+        128,
+        64,
+        32
+      ],
+      "dim_out": [
+        null,
+        null,
+        null,
+        null,
+        3
+      ],
+      "dim_res_blocks": [
+        1024,
+        256,
+        128,
+        64,
+        32
+      ],
+      "num_res_blocks": [
+        0,
+        1,
+        1,
+        1,
+        0
+      ],
+      "res_block_in_norm": "none",
+      "res_block_hidden_norm": "none",
+      "resamplers": [
+        "conv_transpose",
+        "conv_transpose",
+        "conv_transpose",
+        "bilinear"
+      ]
+    },
+    "mask_head": {
+      "dim_in": [
+        1024,
+        256,
+        128,
+        64,
+        32
+      ],
+      "dim_out": [
+        null,
+        null,
+        null,
+        null,
+        1
+      ],
+      "dim_res_blocks": [
+        1024,
+        256,
+        128,
+        64,
+        32
+      ],
+      "num_res_blocks": [
+        0,
+        1,
+        1,
+        1,
+        0
+      ],
+      "res_block_in_norm": "none",
+      "res_block_hidden_norm": "none",
+      "resamplers": [
+        "conv_transpose",
+        "conv_transpose",
+        "conv_transpose",
+        "bilinear"
+      ]
+    },
+    "scale_head": {
+      "dims": [
+        1024,
+        1024,
+        1024,
+        1
+      ]
+    },
+    "remap_output": "exp",
+    "num_tokens_range": [
+      1200,
+      3600
+    ]
+  },
+  "optimizer": {
+    "type": "AdamW",
+    "params": [
+      {
+        "params": {
+          "include": [
+            "*"
+          ],
+          "exclude": [
+            "*.backbone.*"
+          ]
+        },
+        "lr": 1e-05
+      },
+      {
+        "params": {
+          "include": [
+            "*.backbone.*"
+          ]
+        },
+        "lr": 1e-06
+      }
+    ]
+  },
+  "lr_scheduler": {
+    "type": "SequentialLR",
+    "params": {
+      "schedulers": [
+        {
+          "type": "LinearLR",
+          "params": {
+            "start_factor": 0.01,
+            "end_factor": 1.0,
+            "total_iters": 200
+          }
+        },
+        {
+          "type": "CosineAnnealingLR",
+          "params": {
+            "T_max": 1600,
+            "eta_min": 1e-07
+          }
+        }
+      ],
+      "milestones": [
+        200
+      ]
+    }
+  },
+  "low_resolution_training_steps": 0,
+  "loss": {
+    "invalid": {},
+    "SFM": {
+      "global": {
+        "function": "affine_invariant_global_loss",
+        "weight": 1.0,
+        "params": {
+          "align_resolution": 48,
+          "truncation_percent": 0.3
+        }
+      },
+      "metric_scale": {
+        "function": "metric_scale_loss",
+        "weight": 1.5
+      }
+    },
+    "SFM2": {
+      "global": {
+        "function": "affine_invariant_global_loss",
+        "weight": 1.0,
+        "params": {
+          "align_resolution": 48,
+          "truncation_percent": 0.8
+        }
+      },
+      "metric_scale": {
+        "function": "metric_scale_loss",
+        "weight": 1.5
+      }
+    },
+    "B": {
+      "global": {
+        "function": "affine_invariant_global_loss",
+        "weight": 1.0,
+        "params": {
+          "align_resolution": 48,
+          "truncation_percent": 0.3
+        }
+      },
+      "metric_scale": {
+        "function": "metric_scale_loss",
+        "weight": 1.5
+      }
+    },
+    "ground-b": {
+      "global": {
+        "function": "affine_invariant_global_loss",
+        "weight": 1.0,
+        "params": {
+          "align_resolution": 48,
+          "truncation_percent": 0.2
+        }
+      },
+      "metric_scale": {
+        "function": "metric_scale_loss",
+        "weight": 0.05
+      }
+    },
+    "ground-a": {
+      "global": {
+        "function": "affine_invariant_global_loss",
+        "weight": 1.0,
+        "params": {
+          "align_resolution": 48,
+          "truncation_percent": 0.2
+        }
+      },
+      "metric_scale": {
+        "function": "metric_scale_loss",
+        "weight": 0.05
+      }
+    }
+  }
+}

@@ -82,7 +82,7 @@ class Baseline(MGEBaselineInterface):
                         new_state_dict[trainable_k] = v
                         break
 
-        self.model.load_state_dict(new_state_dict, strict=False)
+        self.model.load_state_dict(new_state_dict, strict=True)
         self.model.to(self.device)
         self.model.eval()
         if self.use_fp16:

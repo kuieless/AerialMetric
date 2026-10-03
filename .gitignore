@@ -19,3 +19,8 @@ __pycache__/
 
 # Keep private final training configurations out of the public repository.
 /MoGe/configs/Final_train/
+
+# Local run logs, process state and sample data
+/local_runs/*
+!/local_runs/README.md
+!/local_runs/*.py

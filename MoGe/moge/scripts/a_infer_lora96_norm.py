@@ -91,7 +91,7 @@ class MogeLoRAEngine:
                     if trainable_k in model_keys:
                         new_state_dict[trainable_k] = v; break
 
-        self.model.load_state_dict(new_state_dict, strict=False)
+        self.model.load_state_dict(new_state_dict, strict=True)
         self.model.to(self.device)
         self.model.eval()
         if self.fp16: self.model.half()
@@ -115,6 +115,7 @@ class MogeLoRAEngine:
                     success_count += count
                 except Exception as e:
                     print(f"\nError processing batch near {batch_paths[0].parent.name}: {e}")
+                    raise
         return success_count
 
     def _process_batch(self, batch_paths, root_out, resize_to):

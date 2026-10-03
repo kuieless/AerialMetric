@@ -14,19 +14,26 @@
 set -euo pipefail
 
 # ====== Config ======
-CONDA_ENV="mogefresh3"
-PROJECT_ROOT="/home/szq/moge2-fresh4"
-OUTPUT_ROOT="/data1/szq/moge2-fresh4"
-IFS=',' read -ra GPU_LIST <<< "${1:-0,1,2,3}"
+export TMPDIR="/data1/szq/moge310/tmp"
+export XDG_CACHE_HOME="/data1/szq/moge310/cache"
+export MPLCONFIGDIR="$XDG_CACHE_HOME/matplotlib"
+export HF_HOME="$XDG_CACHE_HOME/huggingface"
+export TORCH_HOME="$XDG_CACHE_HOME/torch"
+PYTHON_BIN="${PYTHON_BIN:-/home/szq/miniconda3/envs/moge310/bin/python}"
+PROJECT_ROOT="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
+OUTPUT_ROOT="${OUTPUT_ROOT:-/data1/szq/moge2/benchmark/retrain-no-ground-step1000}"
+IFS=',' read -ra GPU_LIST <<< "${1:-0,1,4,5}"
 N_GPUS=${#GPU_LIST[@]}
 
 # ---- Model Weights ----
 # MoGe-2 ViT-Large base checkpoint, download:
 #   https://huggingface.co/Ruicheng/moge-2-vitl-normal
-MOGE2_BASE="/home/szq/moge2-ed/vitl-normal.pt"
+MOGE2_BASE="/data1/szq/moge310/weights/vitl-normal.pt"
 
-# MoGe-2 Aerial LoRA weights (paper checkpoint)
-MOGE2_AERIAL="/data1/szq/moge2/权重/workspace/weights/Moge2-Aerial.pt"
+# New training LoRA checkpoint; override with MOGE2_AERIAL.
+MOGE2_AERIAL="${MOGE2_AERIAL:-/data1/szq/moge2/权重/workspace/retrain-lora96-192-UElr2-no-ground-1800-20261002_182751/checkpoint/00001000.pt}"
+BASE_TAG="$(basename "$MOGE2_BASE" .pt)"
+AERIAL_TAG="$(basename "$MOGE2_AERIAL" .pt)"
 
 # ---- Datasets ----
 # Standard layout (no per-sample intrinsics)
@@ -55,7 +62,7 @@ aerial() {
     local full_out="$OUTPUT_ROOT/$out"
     echo "[$(ts)] [GPU$gpu] START: $tag"
     cd "$PROJECT_ROOT"
-    conda run -n "$CONDA_ENV" python "$AERIAL_CLI" \
+    "$PYTHON_BIN" "$AERIAL_CLI" \
         --model_type "$mt" --checkpoint "$ckpt" \
         --output_dir "$full_out" \
         --gpu "$gpu" --resize 0 --batch_size "$bsz" \
@@ -69,11 +76,11 @@ ground_base() {
     local gpu=$1 tag=$2 out_json=$3 ckpt=$4 oracle=$5
     echo "[$(ts)] [GPU$gpu] START: $tag"
     cd "$GROUND_DIR"
-    local cmd="conda run -n $CONDA_ENV python moge/scripts/eval_baseline.py \
-        --baseline baselines/moge2_metric.py --config $GROUND_CFG \
-        --output $out_json --checkpoint $ckpt --resolution_level 9 --fp16 --device cuda:0"
-    [ "$oracle" = "yes" ] && cmd="$cmd --oracle"
-    eval "$cmd"
+    local -a cmd=("$PYTHON_BIN" moge/scripts/eval_baseline.py
+        --baseline baselines/moge2_metric.py --config "$GROUND_CFG"
+        --output "$out_json" --checkpoint "$ckpt" --resolution_level 9 --fp16 --device cuda:0)
+    if [ "$oracle" = "yes" ]; then cmd+=(--oracle); fi
+    "${cmd[@]}"
     echo "[$(ts)] [GPU$gpu] DONE:  $tag"
 }
 
@@ -82,12 +89,11 @@ ground_lora() {
     local gpu=$1 tag=$2 out_json=$3 lora_w=$4 oracle=$5
     echo "[$(ts)] [GPU$gpu] START: $tag"
     cd "$GROUND_DIR"
-    local cmd="conda run -n $CONDA_ENV python moge/scripts/eval_baselinelora.py \
-        --baseline baselines/moge2_lora.py \
-        --lora_weight $lora_w --lora_rank 96 --resolution_level 9 \
-        --config $GROUND_CFG --output $out_json --device cuda:0"
-    [ "$oracle" = "yes" ] && cmd="$cmd --oracle"
-    eval "$cmd"
+    local -a cmd=("$PYTHON_BIN" moge/scripts/eval_baselinelora.py
+        --baseline baselines/moge2_lora.py --lora_weight "$lora_w" --lora_rank 96 --resolution_level 9
+        --config "$GROUND_CFG" --output "$out_json" --device cuda:0)
+    if [ "$oracle" = "yes" ]; then cmd+=(--oracle); fi
+    "${cmd[@]}"
     echo "[$(ts)] [GPU$gpu] DONE:  $tag"
 }
 
@@ -102,11 +108,17 @@ schedule() {
     local -a slot_pid=()
     for ((i=0; i<N_GPUS; i++)); do slot_pid[$i]=""; done
 
-    local next=0 running=0
+    local next=0 running=0 failed=0
     while [ $next -lt $total ] || [ $running -gt 0 ]; do
         # Release finished slots
         for ((i=0; i<N_GPUS; i++)); do
             if [ -n "${slot_pid[$i]:-}" ] && ! kill -0 "${slot_pid[$i]}" 2>/dev/null; then
+                if wait "${slot_pid[$i]}"; then
+                    :
+                else
+                    echo "[$(ts)] [ERROR] Task on GPU${GPU_LIST[$i]} failed" >&2
+                    failed=$((failed + 1))
+                fi
                 slot_pid[$i]=""
                 running=$((running - 1))
             fi
@@ -143,6 +155,10 @@ schedule() {
         [ $next -ge $total ] && [ $running -eq 0 ] && break
         sleep 5
     done
+    if [ "$failed" -gt 0 ]; then
+        echo "[ERROR] $failed benchmark task(s) failed" >&2
+        return 1
+    fi
 }
 
 # ====== Result Printing ======
@@ -172,7 +188,7 @@ print_ground() {
     local f=$1 label=$2
     if [ -f "$f" ]; then
         echo "  === $label ==="
-        conda run -n "$CONDA_ENV" python3 -c "
+        "$PYTHON_BIN" -c "
 import json
 with open('$f') as fh: data=json.load(fh)
 for k,v in data.items():
@@ -191,14 +207,14 @@ main() {
     echo " GPUs: ${GPU_LIST[*]} ($N_GPUS cards) | Start: $(date)"
     echo "============================================================"
     echo "[Pre-check]"
-    conda run -n "$CONDA_ENV" python -c \
+    "$PYTHON_BIN" -c \
         "import torch; print(f'  PyTorch {torch.__version__}, CUDA: {torch.cuda.is_available()}')"
     for f in "$MOGE2_BASE" "$MOGE2_AERIAL"; do [ -f "$f" ] && echo "  OK: $f" || { echo "  MISSING: $f"; exit 1; }; done
     for d in "$DECOUPLED" "$DECOUPLED_NORM" "$DECOUPLED_MASK" "$OBLIQUE" "$OBLIQUE_NORM" "$OBLIQUE_MASK" "$WILD"; do
-        [ -d "$d" ] && echo "  OK: $d" || echo "  MISSING: $d"; done
+        [ -d "$d" ] && echo "  OK: $d" || { echo "  MISSING: $d"; exit 1; }; done
 
-    # Clean old results
-    rm -rf "$OUTPUT_ROOT" && mkdir -p "$OUTPUT_ROOT"
+    # Keep existing results; the CLI skips completed reports.
+    mkdir -p "$OUTPUT_ROOT/exp3_ground" "$OUTPUT_ROOT/exp4_ground"
 
     # ================================================================
     # Task queue: 10 independent tasks, each with unique output_subdir
@@ -233,8 +249,8 @@ main() {
     # ================================================================
     echo ""; echo "=============== RESULTS SUMMARY ==============="
 
-    B_DIR="$OUTPUT_ROOT/exp1_no_intrinsics/full/vitl-normal/Extracted"
-    A_DIR="$OUTPUT_ROOT/exp1_no_intrinsics/lora96/Moge2-Aerial/Extracted"
+    B_DIR="$OUTPUT_ROOT/exp1_no_intrinsics/full/$BASE_TAG/Extracted"
+    A_DIR="$OUTPUT_ROOT/exp1_no_intrinsics/lora96/$AERIAL_TAG/Extracted"
     echo -e "\n##### EXP1: No Intrinsics, Mask=load, B=8 #####"
     echo "--- MoGe2 Base ---"
     print_aerial "$B_DIR/Decoupled/Eval_Report_Decoupled.txt" "Decoupled"
@@ -247,13 +263,13 @@ main() {
 
     echo -e "\n##### EXP2: With Intrinsics (norm), Mask=load #####"
     echo "--- MoGe2 Base Decoupled (B=1) ---"
-    print_aerial "$OUTPUT_ROOT/exp2_intrin_decoupled_base/full/vitl-normal/Extracted/Decoupled/Eval_Report_Decoupled.txt" "Decoupled"
+    print_aerial "$OUTPUT_ROOT/exp2_intrin_decoupled_base/full/$BASE_TAG/Extracted/Decoupled/Eval_Report_Decoupled.txt" "Decoupled"
     echo "--- MoGe2 Base Oblique (B=8) ---"
-    print_aerial "$OUTPUT_ROOT/exp2_intrin_oblique_base/full/vitl-normal/Extracted/Oblique/Eval_Report_Oblique_Pixel.txt" "Oblique"
+    print_aerial "$OUTPUT_ROOT/exp2_intrin_oblique_base/full/$BASE_TAG/Extracted/Oblique/Eval_Report_Oblique_Pixel.txt" "Oblique"
     echo "--- MoGe2 Aerial Decoupled (B=1) ---"
-    print_aerial "$OUTPUT_ROOT/exp2_intrin_decoupled_aerial/lora96/Moge2-Aerial/Extracted/Decoupled/Eval_Report_Decoupled.txt" "Decoupled"
+    print_aerial "$OUTPUT_ROOT/exp2_intrin_decoupled_aerial/lora96/$AERIAL_TAG/Extracted/Decoupled/Eval_Report_Decoupled.txt" "Decoupled"
     echo "--- MoGe2 Aerial Oblique (B=8) ---"
-    print_aerial "$OUTPUT_ROOT/exp2_intrin_oblique_aerial/lora96/Moge2-Aerial/Extracted/Oblique/Eval_Report_Oblique_Pixel.txt" "Oblique"
+    print_aerial "$OUTPUT_ROOT/exp2_intrin_oblique_aerial/lora96/$AERIAL_TAG/Extracted/Oblique/Eval_Report_Oblique_Pixel.txt" "Oblique"
 
     echo -e "\n##### EXP3: Ground, No Oracle #####"
     print_ground "$OUTPUT_ROOT/exp3_ground/moge2_base.json"   "MoGe2 Base"

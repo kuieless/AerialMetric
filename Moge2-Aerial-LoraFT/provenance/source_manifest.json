@@ -1,0 +1,254 @@
+[
+  {
+    "file": "moge/__init__.py",
+    "source": "/data1/szq/moge310/moge2-a6000-main/MoGe/moge/__init__.py",
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "packaged_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "cleanup": null
+  },
+  {
+    "file": "moge/model/__init__.py",
+    "source": "/data1/szq/moge310/moge2-a6000-main/MoGe/moge/model/__init__.py",
+    "sha256": "8cf7085951f070021c3e212f35570d924aaa85e98002c285bc7c1df917d36294",
+    "packaged_sha256": "8cf7085951f070021c3e212f35570d924aaa85e98002c285bc7c1df917d36294",
+    "cleanup": null
+  },
+  {
+    "file": "moge/model/dinov2/__init__.py",
+    "source": "/data1/szq/moge310/moge2-a6000-main/MoGe/moge/model/dinov2/__init__.py",
+    "sha256": "0d2b87b7e71c7f7279ccc4b4f8b541d26071425284a0ea01a5a435fac4511cfe",
+    "packaged_sha256": "0d2b87b7e71c7f7279ccc4b4f8b541d26071425284a0ea01a5a435fac4511cfe",
+    "cleanup": null
+  },
+  {
+    "file": "moge/model/dinov2/hub/__init__.py",
+    "source": "/data1/szq/moge310/moge2-a6000-main/MoGe/moge/model/dinov2/hub/__init__.py",
+    "sha256": "2932e94a2d67be87b717c49468214c1127be7864aedf37f5891d26be7bc1437f",
+    "packaged_sha256": "2932e94a2d67be87b717c49468214c1127be7864aedf37f5891d26be7bc1437f",
+    "cleanup": null
+  },
+  {
+    "file": "moge/model/dinov2/hub/backbones.py",
+    "source": "/data1/szq/moge310/moge2-a6000-main/MoGe/moge/model/dinov2/hub/backbones.py",
+    "sha256": "11c3b7e3da2a843ba5953191e8fc2027b37490313dfb315c0d4ad1a0ea31d27d",
+    "packaged_sha256": "11c3b7e3da2a843ba5953191e8fc2027b37490313dfb315c0d4ad1a0ea31d27d",
+    "cleanup": null
+  },
+  {
+    "file": "moge/model/dinov2/hub/utils.py",
+    "source": "/data1/szq/moge310/moge2-a6000-main/MoGe/moge/model/dinov2/hub/utils.py",
+    "sha256": "c0533919016531b320bf9aef7cd7001249bc8ef8957cdb29246c15b67d5abdf8",
+    "packaged_sha256": "c0533919016531b320bf9aef7cd7001249bc8ef8957cdb29246c15b67d5abdf8",
+    "cleanup": null
+  },
+  {
+    "file": "moge/model/dinov2/layers/__init__.py",
+    "source": "/data1/szq/moge310/moge2-a6000-main/MoGe/moge/model/dinov2/layers/__init__.py",
+    "sha256": "5b5f637b2371089e34e0bec9a49518e2250f915aa9e10cae83a32f8e671ad24f",
+    "packaged_sha256": "5b5f637b2371089e34e0bec9a49518e2250f915aa9e10cae83a32f8e671ad24f",
+    "cleanup": null
+  },
+  {
+    "file": "moge/model/dinov2/layers/attention.py",
+    "source": "/data1/szq/moge310/moge2-a6000-main/MoGe/moge/model/dinov2/layers/attention.py",
+    "sha256": "cc3f20ec18a07061297bcbeacc842aec43534f8eb5fd62516273c2c3385a6b79",
+    "packaged_sha256": "2eca3a25c371d8a4b05b8a2eff693affb4b0286ea4a767ed3198df6c7b593d02",
+    "cleanup": "Removed Chinese comments and commented-out code; executable AST unchanged."
+  },
+  {
+    "file": "moge/model/dinov2/layers/block.py",
+    "source": "/data1/szq/moge310/moge2-a6000-main/MoGe/moge/model/dinov2/layers/block.py",
+    "sha256": "13a024d6b45dd0c63300f0ef0b5135d8551dc563436c4d70fc4ec7c44980023b",
+    "packaged_sha256": "b71c84ff0aff35ef805cb4e00db2a2ce7e203b0795db8e5ecba634388433d32c",
+    "cleanup": "Removed Chinese comments and commented-out code; executable AST unchanged."
+  },
+  {
+    "file": "moge/model/dinov2/layers/dino_head.py",
+    "source": "/data1/szq/moge310/moge2-a6000-main/MoGe/moge/model/dinov2/layers/dino_head.py",
+    "sha256": "9fdb1fa61c0609dc0876f711f9d0d828c33bf9fd972aab3d9c968d44e16b98d1",
+    "packaged_sha256": "9fdb1fa61c0609dc0876f711f9d0d828c33bf9fd972aab3d9c968d44e16b98d1",
+    "cleanup": null
+  },
+  {
+    "file": "moge/model/dinov2/layers/drop_path.py",
+    "source": "/data1/szq/moge310/moge2-a6000-main/MoGe/moge/model/dinov2/layers/drop_path.py",
+    "sha256": "b9f8236e86054b9d9a71275efcad2a9ecaa1f86b529d4b8d6109ddb5e806f67a",
+    "packaged_sha256": "b9f8236e86054b9d9a71275efcad2a9ecaa1f86b529d4b8d6109ddb5e806f67a",
+    "cleanup": null
+  },
+  {
+    "file": "moge/model/dinov2/layers/layer_scale.py",
+    "source": "/data1/szq/moge310/moge2-a6000-main/MoGe/moge/model/dinov2/layers/layer_scale.py",
+    "sha256": "abb7bbfae152a9de2e6d0961ab5e75c79428e849281bfe50dd07b66b54b485d1",
+    "packaged_sha256": "abb7bbfae152a9de2e6d0961ab5e75c79428e849281bfe50dd07b66b54b485d1",
+    "cleanup": null
+  },
+  {
+    "file": "moge/model/dinov2/layers/mlp.py",
+    "source": "/data1/szq/moge310/moge2-a6000-main/MoGe/moge/model/dinov2/layers/mlp.py",
+    "sha256": "255825c73b60a916dd00eb1e38aacbcdbf316e40d6a005efb46e245b7edb43aa",
+    "packaged_sha256": "255825c73b60a916dd00eb1e38aacbcdbf316e40d6a005efb46e245b7edb43aa",
+    "cleanup": null
+  },
+  {
+    "file": "moge/model/dinov2/layers/patch_embed.py",
+    "source": "/data1/szq/moge310/moge2-a6000-main/MoGe/moge/model/dinov2/layers/patch_embed.py",
+    "sha256": "40da6add3d811198ea3e17cb99cdd4e5cda59e369efbbe3d18d89308618cf142",
+    "packaged_sha256": "40da6add3d811198ea3e17cb99cdd4e5cda59e369efbbe3d18d89308618cf142",
+    "cleanup": null
+  },
+  {
+    "file": "moge/model/dinov2/layers/swiglu_ffn.py",
+    "source": "/data1/szq/moge310/moge2-a6000-main/MoGe/moge/model/dinov2/layers/swiglu_ffn.py",
+    "sha256": "4c75f68d902cf497cb51e770ab8720057fa9957dd4c93da83aaf4f8893d14538",
+    "packaged_sha256": "619ebd351556c373dfd02d45bbec3277a24305fed2cccd6f61382e2e19e6ba97",
+    "cleanup": "Removed Chinese comments and commented-out code; executable AST unchanged."
+  },
+  {
+    "file": "moge/model/dinov2/models/__init__.py",
+    "source": "/data1/szq/moge310/moge2-a6000-main/MoGe/moge/model/dinov2/models/__init__.py",
+    "sha256": "87b360c71997314f41be1c497cc42326fc32617d3a2840f2f19d3795ca8b85ee",
+    "packaged_sha256": "87b360c71997314f41be1c497cc42326fc32617d3a2840f2f19d3795ca8b85ee",
+    "cleanup": null
+  },
+  {
+    "file": "moge/model/dinov2/models/vision_transformer.py",
+    "source": "/data1/szq/moge310/moge2-a6000-main/MoGe/moge/model/dinov2/models/vision_transformer.py",
+    "sha256": "1df8a949cf9e7eb3e1e4721f3a82839a0685b9dc94c52a5f5a9ab6ee9ffb0cd0",
+    "packaged_sha256": "1df8a949cf9e7eb3e1e4721f3a82839a0685b9dc94c52a5f5a9ab6ee9ffb0cd0",
+    "cleanup": null
+  },
+  {
+    "file": "moge/model/modules.py",
+    "source": "/data1/szq/moge310/moge2-a6000-main/MoGe/moge/model/modules.py",
+    "sha256": "cb5d7ff75f410be2f8466fc5ca164e04f7b991385c141b3d896c02ead7858fc2",
+    "packaged_sha256": "cb5d7ff75f410be2f8466fc5ca164e04f7b991385c141b3d896c02ead7858fc2",
+    "cleanup": null
+  },
+  {
+    "file": "moge/model/utils.py",
+    "source": "/data1/szq/moge310/moge2-a6000-main/MoGe/moge/model/utils.py",
+    "sha256": "cb7279c4295afae9278b13d70181128ab2e29027b08a012a1b0f33213c16de22",
+    "packaged_sha256": "cb7279c4295afae9278b13d70181128ab2e29027b08a012a1b0f33213c16de22",
+    "cleanup": null
+  },
+  {
+    "file": "moge/model/v2.py",
+    "source": "/data1/szq/moge310/moge2-a6000-main/MoGe/moge/model/v2.py",
+    "sha256": "305ecb62cf9815123c1a4700e5dc059c4fabdb7780257be76529c111a2395a43",
+    "packaged_sha256": "4c5b7073f99253f288610a1a8a115170e64aefd4f98af5f3786a7bad51788fd8",
+    "cleanup": "Removed Chinese comments and commented-out code; executable AST unchanged."
+  },
+  {
+    "file": "moge/scripts/__init__.py",
+    "source": "/data1/szq/moge310/moge2-a6000-main/MoGe/moge/scripts/__init__.py",
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "packaged_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "cleanup": null
+  },
+  {
+    "file": "moge/scripts/trainall-lora96-192-1800.py",
+    "source": "/data1/szq/moge310/moge2-a6000-main/MoGe/moge/scripts/trainall-lora96-192-1800.py",
+    "sha256": "1ab3de78dce581b8c29149ec6b10eef898ce55fc4e9d85f62d794ce6ef5d1e8b",
+    "packaged_sha256": "69fa7775c549cc71fe07d046a66d26352969c63a9cd8b67ff207f9ca03df56cc",
+    "cleanup": "Removed Chinese comments and commented-out code; executable AST unchanged."
+  },
+  {
+    "file": "moge/test/__init__.py",
+    "source": "/data1/szq/moge310/moge2-a6000-main/MoGe/moge/test/__init__.py",
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "packaged_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "cleanup": null
+  },
+  {
+    "file": "moge/test/metrics.py",
+    "source": "/data1/szq/moge310/moge2-a6000-main/MoGe/moge/test/metrics.py",
+    "sha256": "8d095e3e84ed7e1fd9f2ba95805bac59cea7cf788d80ebd1bd8943f953c6d2a0",
+    "packaged_sha256": "d85a54fb5edbb78d188c30ac10053ba7002b0b23c54ce7233fd5d5eaf05ace26",
+    "cleanup": "Removed Chinese comments and commented-out code; executable AST unchanged."
+  },
+  {
+    "file": "moge/train/__init__.py",
+    "source": "/data1/szq/moge310/moge2-a6000-main/MoGe/moge/train/__init__.py",
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "packaged_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "cleanup": null
+  },
+  {
+    "file": "moge/train/dataloader.py",
+    "source": "/data1/szq/moge310/moge2-a6000-main/MoGe/moge/train/dataloader.py",
+    "sha256": "476351ae9a2338762f14b3f924b5532939cbbf9af156e4e5006cad7856efb4ee",
+    "packaged_sha256": "a78805369714d2ddcfa3b5ac4a4bd8f97d9a154ec289c74a1ba49e459de7f9de",
+    "cleanup": "Removed Chinese comments and commented-out code; executable AST unchanged."
+  },
+  {
+    "file": "moge/train/losses.py",
+    "source": "/data1/szq/moge310/moge2-a6000-main/MoGe/moge/train/losses.py",
+    "sha256": "1d683b246fe0cf205ced8f2eacf41463f2d54797dca4fd562d5180e661334ef0",
+    "packaged_sha256": "d2f3faea110a91e188536ec904d5d61e37a844a8873ca7ebffde0ff3ba3786d0",
+    "cleanup": "Removed Chinese comments and commented-out code; executable AST unchanged."
+  },
+  {
+    "file": "moge/train/utils.py",
+    "source": "/data1/szq/moge310/moge2-a6000-main/MoGe/moge/train/utils.py",
+    "sha256": "97b645e3789cb4739ef87437313405b6b0b2dc04e745ae99f3bc987a3b22e723",
+    "packaged_sha256": "97b645e3789cb4739ef87437313405b6b0b2dc04e745ae99f3bc987a3b22e723",
+    "cleanup": null
+  },
+  {
+    "file": "moge/utils/__init__.py",
+    "source": "/data1/szq/moge310/moge2-a6000-main/MoGe/moge/utils/__init__.py",
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "packaged_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "cleanup": null
+  },
+  {
+    "file": "moge/utils/alignment.py",
+    "source": "/data1/szq/moge310/moge2-a6000-main/MoGe/moge/utils/alignment.py",
+    "sha256": "54f92d16cb1f692c3f340b87e583c2f6034d9c081755c670b83d100a4d6a3e5b",
+    "packaged_sha256": "eadf23e95cb1db675867be67abed0ebd7d3d79f3d7b633bfedbf46774237ca5b",
+    "cleanup": "Removed Chinese comments and commented-out code; executable AST unchanged."
+  },
+  {
+    "file": "moge/utils/data_augmentation.py",
+    "source": "/data1/szq/moge310/moge2-a6000-main/MoGe/moge/utils/data_augmentation.py",
+    "sha256": "b0d9d49f29e016915398630eb52921276bb9aea2ed0268713eff3567f574c874",
+    "packaged_sha256": "f9c4a3673b3962be0ab1dac9b682cf9515e63ec8d481ccfe90461e6acce7a359",
+    "cleanup": "Removed Chinese comments and commented-out code; executable AST unchanged."
+  },
+  {
+    "file": "moge/utils/geometry_numpy.py",
+    "source": "/data1/szq/moge310/moge2-a6000-main/MoGe/moge/utils/geometry_numpy.py",
+    "sha256": "c41ee7e85c9ebf196d2e35ce96ff841e4152b8b314af1251a6c866077022063b",
+    "packaged_sha256": "f179c4809d00b9d85baec6e7626fd0f7709d765ecf9710e74f37d5c5e7bffdb6",
+    "cleanup": "Removed Chinese comments and commented-out code; executable AST unchanged."
+  },
+  {
+    "file": "moge/utils/geometry_torch.py",
+    "source": "/data1/szq/moge310/moge2-a6000-main/MoGe/moge/utils/geometry_torch.py",
+    "sha256": "2f8d5de7d671af16d25fe13c555fd73855d8447bc086bb23aa42e859b303fb05",
+    "packaged_sha256": "2f8d5de7d671af16d25fe13c555fd73855d8447bc086bb23aa42e859b303fb05",
+    "cleanup": null
+  },
+  {
+    "file": "moge/utils/io.py",
+    "source": "/data1/szq/moge310/moge2-a6000-main/MoGe/moge/utils/io.py",
+    "sha256": "36dcbc1fc933dcd19d2c97d3a7a3d556ce3f3a191055bb4cc6f93168c4ef32ba",
+    "packaged_sha256": "ef1ffe94b91a50a565eafcfb62af92b2029c76ca4222368741bd8d97d89638ad",
+    "cleanup": "Removed Chinese comments and commented-out code; executable AST unchanged."
+  },
+  {
+    "file": "moge/utils/tools.py",
+    "source": "/data1/szq/moge310/moge2-a6000-main/MoGe/moge/utils/tools.py",
+    "sha256": "ee4893ddbc49da5b24ab43277e9693e86a842dace69452803bab85b531121f60",
+    "packaged_sha256": "63b78ac6797c51ce073b9cec53635e8567e92739c08e9fc0e8c60c89de1131e1",
+    "cleanup": "Removed Chinese comments and commented-out code; executable AST unchanged."
+  },
+  {
+    "file": "moge/utils/vis.py",
+    "source": "/data1/szq/moge310/moge2-a6000-main/MoGe/moge/utils/vis.py",
+    "sha256": "eb4d3d9a77caf923628312ab56e5fc241f39a2d3f2c066a763e76ce49842c1a9",
+    "packaged_sha256": "eb4d3d9a77caf923628312ab56e5fc241f39a2d3f2c066a763e76ce49842c1a9",
+    "cleanup": null
+  }
+]

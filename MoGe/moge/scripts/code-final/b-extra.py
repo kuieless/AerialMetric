@@ -93,7 +93,9 @@ class AdaptiveExtractor:
             
             # 复制文件
             # 如果想用软链接节省空间，把 shutil.copy2 改为 os.symlink(src, dst_file)
-            shutil.copy2(src, dst_file) 
+            if dst_file.exists():
+                dst_file.unlink()
+            os.link(src, dst_file)
             return True
         except Exception as e:
             return str(e)
@@ -129,6 +131,8 @@ class AdaptiveExtractor:
         print(f"✅ 成功:    {success_count}")
         print(f"❌ 失败:    {fail_count}")
         print("="*40 + "\n")
+        if fail_count:
+            raise RuntimeError(f"Failed to extract {fail_count} prediction files")
 
 # ================= 命令行入口 =================
 

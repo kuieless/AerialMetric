@@ -269,6 +269,9 @@ def process_checkpoint(args, ckpt_path, script_dir, env):
     print(f"\n  [{args.model_type}] {ckpt_name}")
     datasets = active_datasets(args)
     print(f"    Active datasets: {', '.join(datasets)}")
+    if not args.force and reports_complete(args, datasets, extract_out):
+        print("    Skip checkpoint: all reports already exist")
+        return
 
     for ds_name, ds_cfg in datasets.items():
         dataset_output = infer_out / ds_name
@@ -301,7 +304,9 @@ def process_checkpoint(args, ckpt_path, script_dir, env):
     for ds_name, ds_cfg in datasets.items():
         evaluate_dataset(args, ds_name, ds_cfg, str(infer_out), str(extract_out), script_dir, str(log_file), env)
 
-    if args.cleanup_intermediate and reports_complete(args, datasets, extract_out):
+    if not reports_complete(args, datasets, extract_out):
+        raise RuntimeError(f"Evaluation reports are incomplete: {model_dir}")
+    if args.cleanup_intermediate:
         cleanup_intermediate(model_dir)
 
 

@@ -82,6 +82,7 @@ class MogeBaseEngine:
                     success_count += count
                 except Exception as e:
                     print(f"Error processing batch near {batch_paths[0].name}: {e}")
+                    raise
         return success_count
 
     def _process_batch(self, batch_paths, root_out, resize_to):
