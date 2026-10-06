@@ -10,7 +10,7 @@ Output per frame:
 
 Usage:
   python demo_infer.py --input photo.jpg --model vitl --checkpoint /path/to/vitl-normal.pt
-  python demo_infer.py --input video.mp4 --model lora --checkpoint /path/to/Moge2-Aerial.pt --lora_config /path/to/config-lora-all.json
+  python demo_infer.py --input video.mp4 --model lora --checkpoint /path/to/Moge2-Aerial.pt
 """
 
 import argparse, json, math, os, random, sys, time
@@ -163,7 +163,14 @@ def load_base_model(checkpoint_path, device="cuda", fp16=True):
 
 
 def load_lora_model(config_path, lora_path, lora_rank=96, device="cuda", fp16=True):
-    """Load MoGe-2 + LoRA checkpoint with robust key mapping."""
+    """Use the benchmark loader unless a custom model config is supplied."""
+    if config_path is None:
+        from moge.scripts.a_infer_lora96_norm import MogeLoRAEngine
+
+        return MogeLoRAEngine(
+            lora_path, device=device, fp16=fp16, lora_rank=lora_rank
+        ).model
+
     from peft import LoraConfig, get_peft_model
 
     print(f"[LoRA Model] loading config={config_path}  weights={lora_path}")
@@ -423,7 +430,7 @@ def main():
         epilog="""
 Examples:
   python demo_infer.py --input photo.jpg --model vitl --checkpoint model.pt
-  python demo_infer.py --input video.mp4 --model lora --checkpoint aerial.pt --lora_config cfg.json --resize 1024
+  python demo_infer.py --input video.mp4 --model lora --checkpoint aerial.pt --resize 1024
         """,
     )
     # ── Required ──
@@ -432,7 +439,8 @@ Examples:
     p.add_argument("--checkpoint", required=True, help="Path to .pt checkpoint")
 
     # ── LoRA ──
-    p.add_argument("--lora_config", default=None, help="LoRA config JSON (required for --model lora)")
+    p.add_argument("--lora_config", default=None,
+                   help="Optional custom model config JSON; defaults to the built-in benchmark configuration")
     p.add_argument("--lora_rank", type=int, default=96, help="LoRA rank (default: 96)")
 
     # ── Output control ──
@@ -482,9 +490,6 @@ Examples:
     args = p.parse_args()
 
     # ── Validate ──
-    if args.model == "lora" and not args.lora_config:
-        p.error("--lora_config is required for --model lora")
-
     input_path = Path(args.input)
     if not input_path.exists():
         raise SystemExit(f"Input not found: {args.input}")
@@ -611,7 +616,7 @@ Examples:
             "model_config": {
                 "model_type": args.model,
                 "checkpoint": args.checkpoint,
-                "lora_config": args.lora_config,
+                "lora_config": (args.lora_config or "moge.lora_model_config") if args.model == "lora" else None,
                 "lora_rank": args.lora_rank if args.model == "lora" else None,
                 "resolution_level": args.resolution_level,
                 "force_projection": args.force_projection,

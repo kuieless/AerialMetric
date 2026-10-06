@@ -132,6 +132,8 @@ Dataset layout: see `DATA_ORGANIZATION.md`. Ground config: edit `Ground_MoGe/con
 
 ## Quick Demo — Single Image / Video / Folder Inference
 
+LoRA inference uses the same built-in model configuration as the benchmark; no additional config JSON is required.
+
 ```bash
 # Base model (single image)
 python demo_infer.py \
@@ -168,6 +170,7 @@ python demo_infer.py \
 | | `--model` | — | `vitl` (base) or `lora` (LoRA fine-tuned) |
 | | `--checkpoint` | — | Path to `.pt` checkpoint |
 | **LoRA** | `--lora_rank` | 96 | LoRA rank |
+| | `--lora_config` | Built-in | Optional custom model config JSON; unnecessary for the released weights |
 | **Inference** | `--resize` | 0 | Long-edge resize target (0=original). Padded to ×14 |
 | | `--resolution_level` | 9 | MoGe2 quality/speed: 0 (fastest) ~ 9 (best) |
 | | `--force_projection` | on | Recompute point map from depth for consistency |
